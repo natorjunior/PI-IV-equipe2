@@ -1,37 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Cadastro - InfoSuplementos</title>
-    <link rel="stylesheet" href="cadastro.css">
-</head>
-<body>
+    <link rel="stylesheet" href="css/cadastro.css" />
+    <script src="js/cadastro.js" defer></script>
+  </head>
+  <body>
     <main>
-        <h1>Cadastro</h1>
-        <div class="separador"></div>
-        <p>Crie sua conta para acessar os conteúdos exclusivos.</p>
-        
-        <form action="#" method="post">
-            <div>
-                <label for="nomeUsuario">Nome:</label>
-                <input type="text" id="nomeUsuario" placeholder="Ex: João Silva"   name="nome_usuario" required>
-            </div>
-            <br>
-            <div>
-                <label for="emailUsuario">Email:</label>
-                <input type="email" id="emailUsuario" placeholder="exemplo@email.com" name="email_usuario" required>
-            </div>
-            <br>
-            <div><div class="voltar"></div>
-                <label for="senhaUsuario">Senha:</label>
-                <input type="password" id="senhaUsuario" placeholder="Mínimo 06 dígitos" name="senha_usuario" required>
-                <br> <br> <br>
-                <button type="submit">Cadastrar</button>
-                <br>
-                <br>
-                <a href="home.html" class="voltar">Voltar</a>
-            </div>
-        </form>
+      <h1>Cadastro</h1>
+      <div class="separador"></div>
+      <p>Crie sua conta para acessar os conteúdos exclusivos.</p>
+
+      <form id="form-cadastro">
+        <div>
+          <label for="nome">Nome:</label>
+          <input
+            type="text"
+            id="nome"
+            placeholder="Ex: João Silva"
+            name="nome"
+            required
+          />
+        </div>
+        <br />
+        <div>
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="exemplo@email.com"
+            name="email"
+            required
+          />
+        </div>
+        <br />
+        <div>
+          <div class="voltar"></div>
+          <label for="senha">Senha:</label>
+          <input
+            type="password"
+            id="senha"
+            placeholder="Mínimo 06 dígitos"
+            name="senha"
+            required
+          />
+          <br />
+          <br />
+          <br />
+          <button type="submit">Cadastrar</button>
+          <br />
+          <br />
+          <a href="index.html" class="voltar">Voltar</a>
+        </div>
+      </form>
     </main>
-</body>
+  </body>
 </html>
