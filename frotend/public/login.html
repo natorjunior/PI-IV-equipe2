@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login - InfoSuplementos</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/login.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <div class="form-container">
+        <h1>Login</h1>
+        <!-- MATHEUS: removi o atributo action="index.html; ele faz o navegador ir para index.html mesmo se o js falhar" -->
+        <form id="form-login">
+          <!-- MATHEUS: comentei esse trecho da tag form. Aparentemente ele já estav sendo desconsiderado pelo html. forms aninhados são invalidados em html -->
+          <!-- <form id="form-login" action="home_logado.html"> -->
+          <div class="input-group">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email"
+              required
+            />
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <div class="input-group">
+            <input
+              type="password"
+              id="senha"
+              name="senha"
+              placeholder="Senha"
+              required
+            />
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <button type="submit">Entrar</button>
+          <div class="links">
+            <p>Não tem uma conta? <a href="cadastro.html">Cadastre-se</a>.</p>
+            <p><a href="index.html">Voltar para a Home</a></p>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 InfoSuplementos - Todos os direitos reservados.</p>
+    </footer>
+  </body>
+</html>

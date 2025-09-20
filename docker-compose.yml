@@ -14,7 +14,7 @@ services:
       - DB_NAME=info_suplementos
     volumes:
       # Montando toda a raiz no container
-      - .:/app
+      - ./frontend:/app
     networks:
       - app-network
     healthcheck:
