@@ -42,6 +42,7 @@ docker-compose down
 - MySQL 8.0
 - Docker + Docker Compose
 
+
 ------
 
 # 📌 Regras para Uso do Git e GitHub no Desenvolvimento
@@ -112,6 +113,3 @@ Título do PR:
   ```sh
   git checkout -b feature/nova-feature
   ```
-
-
-

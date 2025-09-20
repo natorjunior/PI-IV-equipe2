@@ -2,7 +2,7 @@ services:
   app:
     # build na raiz do projeto
     build: frontend/
-    container_name: app
+    container_name: app_info_suplementos
     ports:
       - "3000:3000"
     depends_on:
