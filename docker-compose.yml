@@ -1,12 +1,13 @@
 services:
   app:
     # build na raiz do projeto
-    build: .
+    build: frontend/
     container_name: app
     ports:
       - "3000:3000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       - DB_HOST=db
       - DB_USER=root
@@ -17,11 +18,6 @@ services:
       - ./frontend:/app
     networks:
       - app-network
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "db"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   db:
     image: mysql:8.0
@@ -37,6 +33,12 @@ services:
       - ./db/init:/docker-entrypoint-initdb.d
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-padmin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 volumes:
   db_data:
 
