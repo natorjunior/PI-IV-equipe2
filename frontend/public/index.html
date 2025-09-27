@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Home - InfoSuplementos</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/main.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-left">
+        <img
+          src="resources/logo.png"
+          alt="Logo InfoSuplementos"
+          class="header-logo"
+        />
+        <h1>InfoSuplementos</h1>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="search-bar">
+        <input type="search" placeholder="Buscar suplementos..." />
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </div>
+
+      <div class="user-actions">
+        <a
+          href="#"
+          id="header-favorites-icon"
+          class="header-icon"
+          title="Favoritos"
+        >
+          <i class="fa-solid fa-heart"></i>
+        </a>
+        <div id="guest-menu">
+          <a href="login.html" class="botao-login">Login / Cadastro</a>
+        </div>
+        <div id="user-menu" class="hidden">
+          <a href="#" id="logout-button" class="header-icon" title="Sair">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <section class="filters">
+      <div class="category-filter">
+        <label for="category-select">Filtrar por Categoria:</label>
+        <select id="category-select" name="category">
+          <option value="all">Todas</option>
+          <option value="proteina">Proteína</option>
+          <option value="creatina">Creatina</option>
+        </select>
+      </div>
+    </section>
+
+    <main class="main-content">
+      <h2>Suplementos em Destaque</h2>
+      <div class="featured-grid">
+        <div class="supplement-card">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
+            ><i class="fa-regular fa-heart"></i
+          ></a>
+          <img
+            src="https://darklabsuplementos.com.br/cdn/shop/files/Creatina_Monoidratada_Pura_Potel_300g_2500x2500_01.png?v=1753279944&width=823"
+            alt="Creatina"
+          />
+          <h3>Creatina Monohidratada</h3>
+          <div class="card-footer">
+            <a href="#" class="buy-button">Ver Detalhes</a>
+          </div>
+        </div>
+
+        <div class="supplement-card">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
+            ><i class="fa-regular fa-heart"></i
+          ></a>
+          <img
+            src="https://m.media-amazon.com/images/I/71shMPMgVxL.jpg"
+            alt="Whey Protein Concentrado"
+          />
+          <h3>Whey Protein Concentrado</h3>
+          <div class="card-footer">
+            <a href="#" class="buy-button">Ver Detalhes</a>
+          </div>
+        </div>
+
+        <div class="supplement-card">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
+            ><i class="fa-regular fa-heart"></i
+          ></a>
+          <img
+            src="https://m.media-amazon.com/images/I/71uZvfC-CTL._UF1000,1000_QL80_.jpg"
+            alt="Whey Protein Isolado"
+          />
+          <h3>Whey Protein Isolado</h3>
+          <div class="card-footer">
+            <a href="#" class="buy-button">Ver Detalhes</a>
+          </div>
+        </div>
+
+        <div class="supplement-card">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
+            ><i class="fa-regular fa-heart"></i
+          ></a>
+          <img
+            src="https://http2.mlstatic.com/D_NQ_NP_2X_744621-MLA86664171278_062025-F.webp"
+            alt="Creatina Creapure"
+          />
+          <h3>Creatina Creapure</h3>
+          <div class="card-footer">
+            <a href="#" class="buy-button">Ver Detalhes</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 InfoSuplementos - Todos os direitos reservados.</p>
+    </footer>
+  </body>
+</html>
