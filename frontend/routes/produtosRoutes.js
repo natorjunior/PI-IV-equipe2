@@ -3,8 +3,8 @@ const express = require("express");
 const router = express.Router();
 const produtosController = require("../controllers/produtosController");
 
-//  defindindo rota para listar usuários
-router.get("/", produtosController.listarSuplementos);
+//  Rota PÚBLICA para buscar produtos com ou sem filtros
+router.get("/search", produtosController.buscarProduto);
 
 //  exportando módulo
 module.exports = router;
