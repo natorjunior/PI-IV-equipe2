@@ -1,0 +1,50 @@
+name: Deploy automático
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      # 1) Checkout do repositório
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # 2) Carrega a chave SSH
+      - name: Configurar SSH
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Deploy Homolog (develop)
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          ssh -o StrictHostKeyChecking=no \
+              -o BatchMode=yes \
+              -T \
+              -p ${{ secrets.SSH_PORT }} \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            set -Eeuo pipefail
+            trap 's=\$?; echo \"[ERRO] linha \${BASH_LINENO[0]} (cmd: \${BASH_COMMAND}) -> exit \$s\" >&2; exit \$s' ERR
+      
+            cd /home/nator/PI-IV-equipe3
+      
+            echo '===> branch develop'
+            git fetch
+            git checkout develop
+            git pull --ff-only
+      
+            echo '===> compose down (homolog)'
+            docker compose -f docker-compose.yml down --remove-orphans || true
+      
+            echo '===> compose pull/build/up (homolog)'
+            docker compose -f docker-compose.yml pull
+            docker compose -f docker-compose.yml up -d --build
+      
+            echo '===> status'
+            docker compose -f docker-compose.yml ps
+          "
