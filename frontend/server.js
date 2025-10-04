@@ -5,6 +5,8 @@
 const express = require("express");
 //  importando módulo session do express
 const session = require("express-session");
+//  importando o módulo path
+const path = require("path");
 //  importndo rotas
 const authRoutes = require("./routes/authRoutes");
 const produtosRoutes = require("./routes/produtosRoutes");
@@ -18,8 +20,8 @@ const PORT = 3000;
 app.use(express.json());
 //  middleware para ler formulários (tag <form>)
 app.use(express.urlencoded({ extended: true }));
-// servindo arquivos estáticos
-app.use(express.static(__dirname + "/public"));
+// servindo arquivos estáticos usando o path que trata separadores de diretórios (/ ou \) de acordo com o sistema operacional
+app.use(express.static(path.join(__dirname, "public")));
 //  middlewre para usar sessões
 app.use(
   session({
@@ -32,15 +34,10 @@ app.use(
   })
 );
 
-//  rota inicial
-app.get("/", (req, res) => {
-  res.send("Servidor rodando com express!");
-});
-
 //  rotas de autenticação
 app.use("/api/auth", authRoutes);
 //  rota de listagem de usuários
-app.use("/api/suplementos", produtosRoutes);
+app.use("/api/infosuplementos", produtosRoutes);
 
 //  iniciando servidor
 app.listen(PORT, () => {
