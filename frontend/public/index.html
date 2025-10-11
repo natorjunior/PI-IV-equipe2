@@ -13,19 +13,13 @@
   <body>
     <header>
       <div class="header-left">
+        <a href="index.html">
         <img
           src="resources/logo.png"
           alt="Logo InfoSuplementos"
           class="header-logo"
-        />
-        <h1>InfoSuplementos</h1>
-        <nav>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="sobre.html">Sobre</a></li>
-            <li><a href="contato.html">Contato</a></li>
-          </ul>
-        </nav>
+        /></a>
+        <h1> <a href="index.html">InfoSuplementos</a></h1>
       </div>
 
       <div class="search-bar">
@@ -33,9 +27,24 @@
         <button type="submit"><i class="fa fa-search"></i></button>
       </div>
 
+      <div class="category-filter">
+        <label for="category-select">Categorias </label>
+        <select id="category-select" name="category">
+          <option value="all">Todas</option>
+          <option value="proteina">Proteína</option>
+          <option value="creatina">Creatina</option>
+        </select>
+      </div>
+
       <div class="user-actions">
+        <nav>
+            <ul>
+              <li><a href="sobre.html">Sobre</a></li>
+              <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
         <a
-          href="#"
+          href="favoritos.html"
           id="header-favorites-icon"
           class="header-icon"
           title="Favoritos"
@@ -52,17 +61,6 @@
         </div>
       </div>
     </header>
-
-    <section class="filters">
-      <div class="category-filter">
-        <label for="category-select">Filtrar por Categoria:</label>
-        <select id="category-select" name="category">
-          <option value="all">Todas</option>
-          <option value="proteina">Proteína</option>
-          <option value="creatina">Creatina</option>
-        </select>
-      </div>
-    </section>
 
     <main class="main-content">
       <h2>Suplementos em Destaque</h2>
@@ -122,11 +120,129 @@
             <a href="#" class="buy-button">Ver Detalhes</a>
           </div>
         </div>
+
+        <!-- Novos Produtos -->
+        <div class="supplement-card">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
+            ><i class="fa-regular fa-heart"></i
+          ></a>
+          <img
+            src="https://i.zst.com.br/thumbs/12/a/17/2005876451.jpg"
+            alt="Creatina Hardcore"
+          />
+          <h3>Creatina Hardcore</h3>
+          <div class="card-footer">
+            <a href="#" class="buy-button">Ver Detalhes</a>
+          </div>
+        </div>
+
+        <div class="supplement-card">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
+            ><i class="fa-regular fa-heart"></i
+          ></a>
+          <img
+            src="https://images-na.ssl-images-amazon.com/images/I/51iZN0U3omL._AC_UL375_SR375,375_.jpg"
+            alt="Max Titanium 100%Whey"
+          />
+          <h3>Max Titanium 100%Whey</h3>
+          <div class="card-footer">
+            <a href="#" class="buy-button">Ver Detalhes</a>
+          </div>
+        </div>
+
+        <div class="supplement-card">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
+            ><i class="fa-regular fa-heart"></i
+          ></a>
+          <img
+            src="https://images-na.ssl-images-amazon.com/images/I/71ZNQQKAUzL._AC_UL600_SR600,400_.jpg"
+            alt="Soldiers Nutrition Creatina Monohidratada"
+          />
+          <h3>Soldiers Nutrition Creatina Monohidratada</h3>
+          <div class="card-footer">
+            <a href="#" class="buy-button">Ver Detalhes</a>
+          </div>
+        </div>
+
+        <div class="supplement-card">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
+            ><i class="fa-regular fa-heart"></i
+          ></a>
+          <img
+            src="https://images-na.ssl-images-amazon.com/images/I/71EE8eH-TuL._AC_UL600_SR600,400_.jpg"
+            alt="Nutri Whei Protein"
+          />
+          <h3>Nutri Whei Protein</h3>
+          <div class="card-footer">
+            <a href="#" class="buy-button">Ver Detalhes</a>
+          </div>
+        </div>
+
+        <div class="supplement-card">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
+            ><i class="fa-regular fa-heart"></i
+          ></a>
+          <img
+            src="https://images-na.ssl-images-amazon.com/images/I/61fNrSzFEML._AC_UL600_SR600,400_.jpg"
+            alt="Probiótica Creatina Monohidratada"
+          />
+          <h3>Probiótica Creatina Monohidratada</h3>
+          <div class="card-footer">
+            <a href="#" class="buy-button">Ver Detalhes</a>
+          </div>
+        </div>
+
+        <div class="supplement-card">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
+            ><i class="fa-regular fa-heart"></i
+          ></a>
+          <img
+            src="https://images-na.ssl-images-amazon.com/images/I/61lFv1KOLcL._AC_UL600_SR600,400_.jpg"
+            alt="Fresh Whey Protein"
+          />
+          <h3>Fresh Whey Protein</h3>
+          <div class="card-footer">
+            <a href="#" class="buy-button">Ver Detalhes</a>
+          </div>
+        </div>
+
+        <div class="supplement-card">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
+            ><i class="fa-regular fa-heart"></i
+          ></a>
+          <img
+            src="https://images-na.ssl-images-amazon.com/images/I/51Acd0fuOsL._AC_UL600_SR600,400_.jpg"
+            alt="Vitafor-Creatine Creatina Monohidratada"
+          />
+          <h3>Vitafor-Creatine Creatina Monohidratada</h3>
+          <div class="card-footer">
+            <a href="#" class="buy-button">Ver Detalhes</a>
+          </div>
+        </div>
+
+        <div class="supplement-card">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
+            ><i class="fa-regular fa-heart"></i
+          ></a>
+          <img
+            src="https://images-na.ssl-images-amazon.com/images/I/61qgQa3akML._AC_UL300_SR300,200_.jpg"
+            alt="Whey Protein 100% Isolada"
+          />
+          <h3>Whey Protein 100% Isolada</h3>
+          <div class="card-footer">
+            <a href="#" class="buy-button">Ver Detalhes</a>
+          </div>
+        </div>
+
+        <!-- Novos Produtos -->
+
       </div>
     </main>
 
     <footer>
-      <p>&copy; 2025 InfoSuplementos - Todos os direitos reservados.</p>
+      <a href="sobre.html">
+        <p>&copy; 2025 InfoSuplementos - Todos os direitos reservados.</p>
+      </a>
     </footer>
   </body>
 </html>
