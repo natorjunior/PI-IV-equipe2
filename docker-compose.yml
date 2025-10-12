@@ -42,7 +42,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: peneirada-phpmyadmin
+    container_name: info_suplementos-phpmyadmin
     restart: unless-stopped
     environment:
       - PMA_HOST=db
