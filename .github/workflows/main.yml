@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: equipe2
 
     steps:
       # 1) Checkout do repositório
@@ -31,7 +31,7 @@ jobs:
             set -Eeuo pipefail
             trap 's=\$?; echo \"[ERRO] linha \${BASH_LINENO[0]} (cmd: \${BASH_COMMAND}) -> exit \$s\" >&2; exit \$s' ERR
       
-            cd /home/nator/PI-IV-equipe3
+            cd /home/nator/PI-IV-equipe2
       
             echo '===> branch develop'
             git fetch
