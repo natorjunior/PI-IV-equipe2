@@ -8,6 +8,7 @@ on:
 
 jobs:
   deploy:
+    environment: HOMOLOG      # ← precisa bater com o nome do environment
     runs-on: equipe2
 
     steps:
