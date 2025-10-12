@@ -59,26 +59,37 @@ exports.login = (req, res) => {
     }
 
     //  caso o email SEJA encontrado
-    //  armazenando, o registro do usuário retornado pela consulta ao banco, na variável usuario
-    const usuario = results[0];
-    //  comparando a senha enviada pela requisição com a senha cadastrada no banco e armazenando um resultado booleano na variável senhaValida
-    const senhaValida = await bcrypt.compare(senha, usuario.senha_hash);
+    else if (results.length > 0) {
+      //  armazenando, o registro do usuário retornado pela consulta ao banco, na variável usuario
+      const usuario = results[0];
+      //  comparando a senha enviada pela requisição com a senha cadastrada no banco
+      bcrypt.compare(senha, usuario.senha_hash, (err, match) => {
+        //  tratando caso de erro no hash da senha
+        if (err) {
+          //  exibindo mensagem de erro no terminal
+          console.error("Erro no hash da senha. Erro: ", err);
+          //  enviando mensagem de erro para o frontend
+          return res
+            .status(500)
+            .json({ message: "Erro no servidor. Senha hash." });
+        }
 
-    //  tratanco caso no qual as senhas diferem
-    if (!senhaValida) {
-      //  enviando mensagem de erro para o frontend
-      return res.status(401).json({ message: "Credenciais inválidas" });
+        //  caso de senhas coincidentes
+        if (match) {
+          //  configurando a sessãao do usuário em um objeto
+          req.session.usuario = {
+            id: usuario.id_usuario,
+            tipo: usuario.tipo_usuairo,
+            status: usuario.status_usuario,
+            nome: usuario.nome,
+            email: usuario.email,
+          };
+
+          //  enviando mensagem de sucesso do servidor para o frontend
+          res.json({ message: "Login bem-sucedido!" });
+        }
+      });
     }
-
-    //  configurando a sessãao do usuário
-    req.session.usuario = {
-      id: usuario.id_usuario,
-      nome: usuario.nome,
-      email: usuario.email,
-    };
-
-    //  enviando mensagem de sucesso do servidor para o frontend
-    res.json({ message: "Login bem-sucedido!" });
   });
 };
 
