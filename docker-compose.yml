@@ -52,7 +52,7 @@ services:
     ports:
       - "1522:80"
     depends_on:
-      - mysql
+      - db
     networks:
       - default
       
