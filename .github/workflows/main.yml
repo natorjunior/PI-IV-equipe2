@@ -46,11 +46,9 @@ jobs:
           
           echo '===> configurando node js'
           cd frontend
-          [ -d node_modules ] && rm -rf node_modules
-          [ -f package-lock.json ] || echo "Sem package-lock.json (ok)"
-
           npm install
           cd ../
+          
           echo '===> compose down (homolog)'
           docker compose -f docker-compose.yml down --remove-orphans || true
 
