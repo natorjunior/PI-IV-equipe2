@@ -46,8 +46,8 @@ services:
     restart: unless-stopped
     environment:
       - PMA_HOST=db
-      - PMA_USER=admin
-      - PMA_PASSWORD=info_suplementos
+      - PMA_USER=root
+      - PMA_PASSWORD=admin
       - PMA_ARBITRARY=1
     ports:
       - "1532:80"
