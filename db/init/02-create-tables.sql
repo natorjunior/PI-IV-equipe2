@@ -19,3 +19,11 @@ CREATE TABLE suplementos (
     id_admin_responsavel INT NOT NULL
     -- FOREIGN KEY (id_admin_responsavel) REFERENCES usuarios(id_usuario)
 );
+
+CREATE TABLE IF NOT EXISTS favoritos (
+    id_usuario INT NOT NULL,
+    id_suplemento INT NOT NULL,
+    PRIMARY KEY (id_usuario, id_suplemento),
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+    FOREIGN KEY (id_suplemento) REFERENCES suplementos(id_suplemento) 
+);
