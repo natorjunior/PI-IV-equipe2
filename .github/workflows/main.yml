@@ -43,9 +43,12 @@ jobs:
           git fetch
           git checkout develop
           git pull --ff-only
+          
+          echo '===> configurando node js'
           cd frontend
-          rm -rf node_modules
-          rm package-lock.json
+          [ -d node_modules ] && rm -rf node_modules
+          [ -f package-lock.json ] || echo "Sem package-lock.json (ok)"
+
           npm install
           cd ../
           echo '===> compose down (homolog)'
