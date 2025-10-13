@@ -43,7 +43,9 @@ jobs:
           git fetch
           git checkout develop
           git pull --ff-only
-
+          cd frontend
+          npm install
+          cd ../
           echo '===> compose down (homolog)'
           docker compose -f docker-compose.yml down --remove-orphans || true
 
