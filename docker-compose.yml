@@ -54,7 +54,7 @@ services:
     depends_on:
       - db
     networks:
-      - default
+      - app-network   
       
 volumes:
   db_data:
