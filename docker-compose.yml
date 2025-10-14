@@ -4,7 +4,7 @@ services:
     build: frontend/
     container_name: app_info_suplementos
     ports:
-      - "3000:3000"
+      - "1531:3000"
     depends_on:
       db:
         condition: service_healthy
@@ -27,7 +27,7 @@ services:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: info_suplementos
     ports:
-      - "3308:3306"
+      - "1530:3306"
     volumes:
       - db_data:/var/lib/mysql
       - ./db/init:/docker-entrypoint-initdb.d
@@ -39,6 +39,23 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: info_suplementos-phpmyadmin
+    restart: unless-stopped
+    environment:
+      - PMA_HOST=db
+      #- PMA_USER=root
+      #- PMA_PASSWORD=admin
+      - PMA_ARBITRARY=1
+    ports:
+      - "1532:80"
+    depends_on:
+      - db
+    networks:
+      - app-network   
+      
 volumes:
   db_data:
 
