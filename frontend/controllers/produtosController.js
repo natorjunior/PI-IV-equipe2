@@ -18,22 +18,22 @@ exports.buscarProduto = (req, res) => {
     //  caso a busca contenha parâmetros
     if (query) {
       sql = `
-        SELECT nome, marca, tipo_suplemento, status_aprovacao 
-        FROM suplementos 
+        SELECT id_suplemento, nome, marca, tipo_suplemento, status_aprovacao
+        FROM suplementos
         WHERE nome LIKE ? OR marca LIKE ? OR tipo_suplemento LIKE ? OR status_aprovacao LIKE ?`;
       //  alimentanto a lista com os parâmetros de busca
       params = [query, query, query, query];
       //  caso a busca não contenha parâmetros
     } else {
       sql =
-        "SELECT nome, marca, tipo_suplemento, status_aprovacao FROM suplementos";
+        "SELECT id_suplemento, nome, marca, tipo_suplemento, status_aprovacao FROM suplementos";
     }
     //  comando para usuário administrador
   } else if (req.session.usuario.tipo === "ADMINISTRADOR") {
     if (query) {
       sql = `
-        SELECT * 
-        FROM suplementos 
+        SELECT *
+        FROM suplementos
         WHERE nome LIKE ? OR marca LIKE ? OR tipo_suplemento LIKE ? OR status_aprovacao LIKE ?`;
       params = [query, query, query, query];
     } else {
@@ -56,7 +56,8 @@ exports.buscarProduto = (req, res) => {
         .json({ message: "Erro no servidor. Busca por suplemento." });
       //  caso de consulta sem resultados recuperados
     } else if (results.length === 0) {
-      return res.status(404).json({ message: "Nenhum suplemento encontrado." });
+      return res.json([]);
+      // return res.status(404).json({ message: "Nenhum suplemento encontrado." });
       //  caso de consulta com resultados recuperados
     } else {
       //  enviando dados recuperados da base
@@ -82,7 +83,7 @@ exports.listarFavoritos = (req, res) => {
   // Comando SQL que usa JOIN para "juntar" a tabela de suplementos com a de favoritos.
   // Ele seleciona apenas os suplementos cujo ID está na lista de favoritos DO USUÁRIO LOGADO.
   const sql = `
-        SELECT s.id_suplemento, s.nome_produto, s.marca, s.status_aprovacao 
+        SELECT s.id_suplemento, s.nome, s.marca, s.status_aprovacao
         FROM suplementos s
         JOIN favoritos f ON s.id_suplemento = f.id_suplemento
         WHERE f.id_usuario = ?
