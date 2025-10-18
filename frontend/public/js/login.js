@@ -34,8 +34,7 @@ formLogin.addEventListener("submit", async function (event) {
 
     //  Se login bem-sucedido, dereciona para a página home
     if (response.ok) {
-      // Salva o estado de logadono localStorage
-      localStorage.setItem("isLoggedIn", "true");
+      // A linha do localStorage foi REMOVIDA. O cookie de sessão já foi criado pelo servidor.
       //  redirencionando para a tela home
       window.location.href = "/index.html";
     } else {

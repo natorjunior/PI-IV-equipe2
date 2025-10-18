@@ -42,19 +42,20 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: peneirada-phpmyadmin
+    container_name: info_suplementos-phpmyadmin
     restart: unless-stopped
     environment:
-      - PMA_HOST=mysql
-      - PMA_USER=admin
-      - PMA_PASSWORD=info_suplementos
+      - PMA_HOST=db
+      #- PMA_USER=root
+      #- PMA_PASSWORD=admin
       - PMA_ARBITRARY=1
     ports:
       - "1532:80"
     depends_on:
-      - mysql
+      - db
     networks:
-      - default
+      - app-network   
+      
 volumes:
   db_data:
 

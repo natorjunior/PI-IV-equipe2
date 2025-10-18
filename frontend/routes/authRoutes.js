@@ -10,5 +10,9 @@ router.post("/login", authController.login);
 //  defindo a rota de logout
 router.post("/logout", authController.logout);
 
+// ROTA ADICIONADA
+//  definindo a rota para verificar o status da sessão (se está logado ou não)
+router.get("/status", authController.status);
+
 //  exportando módulo
 module.exports = router;
