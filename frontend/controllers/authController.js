@@ -12,7 +12,8 @@ exports.cadastrar = async (req, res) => {
     //  gerando um hash da senha com fator de custo 10
     const hashedPassword = await bcrypt.hash(senha, 10);
     //  comando sql para cadastrar usuário
-    const sql = "INSERT INTO usuarios (nome, email, senha_hash) VALUES (?,?,?)";
+    const sql =
+      "INSERT INTO usuarios (nome, email, senha_hash, tipo_usuario, status_usuario) VALUES (?,?,?,'COMUM','ATIVO')";
     //  cadastrando usuário no banco
     db.query(sql, [nome, email, hashedPassword], (err) => {
       //  tratando caso de erro no banco
