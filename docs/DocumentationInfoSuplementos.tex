@@ -1,0 +1,59 @@
+\documentclass[12pt,a4paper]{article}
+
+% Idioma e codificação
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} % Overleaf já usa UTF-8, mas não faz mal manter
+\usepackage[portuguese]{babel}
+
+% Pacotes úteis
+\usepackage{lmodern}    % fontes
+\usepackage{microtype}  % melhor tipografia
+\usepackage{hyperref}   % URLs e links clicáveis
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% Título
+\title{Método de Avaliação de Usabilidade (SUS)}
+\author{Pedro Tales / InfoSuplmentos}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\bigskip
+
+\section{Método de Avaliação de Usabilidade}
+
+\subsection{Objetivo}
+O objetivo desta etapa é avaliar a usabilidade e a experiência geral de uso do site de suplementos alimentares, considerando aspectos de navegação, clareza da informação, estética e satisfação geral dos usuários. A avaliação foi conduzida por meio de um questionário desenvolvido no Google Forms, baseado em princípios do System Usability Scale (SUS) e adaptado às características do projeto.
+
+\subsection{Participantes}
+Participaram da avaliação usuários potenciais do site e estudantes de turma. Foram coletadas informações demográficas como idade, escolaridade e frequência de compra de suplementos, permitindo caracterizar o perfil do público-alvo.
+
+\subsection{Instrumento de Coleta de Dados}
+O instrumento utilizado foi um formulário eletrônico elaborado no Google Forms (\url{https://docs.google.com/forms/d/e/1FAIpQLSedlxPpPGPA_pH3LVlV916ewnRjc4-TeTUIGmWmLySkYKcMcA/viewform}), composto por quatro seções:
+
+\begin{enumerate}
+  \item \textbf{Perfil do Usuário}: coleta de informações como idade, gênero, escolaridade e frequência de consumo de suplementos.
+  \item \textbf{Acesso e Navegação}: questões sobre o dispositivo de acesso, facilidade de navegação, clareza dos menus e organização do conteúdo.
+  \item \textbf{Conteúdo e Informações}: avaliação da clareza das descrições dos produtos, utilidade das imagens e confiança nas informações apresentadas.
+  \item \textbf{Satisfação e Sugestões}: perguntas sobre o nível geral de satisfação, probabilidade de recomendar o site e campo aberto para sugestões.
+\end{enumerate}
+
+\subsection{Procedimento}
+Os participantes foram convidados a acessar o site de suplementos e explorar suas funcionalidades principais (busca de produtos, visualização de detalhes e leitura de informações nutricionais). Após a navegação, responderam ao questionário de avaliação. As respostas foram registradas automaticamente no Google Sheets, exportadas em formato CSV e analisadas quantitativamente.
+
+\subsection{Análise de Dados}
+A análise quantitativa envolveu:
+\begin{itemize}
+  \item Cálculo da pontuação SUS individual e média (0–100).
+  \item Estatísticas descritivas: média, desvio-padrão, mediana, e intervalo interquartil.
+  \item Distribuições de frequência por categoria (perfil, dispositivo de acesso, satisfação geral).
+  \item Representações gráficas: histogramas, boxplots e gráficos de barras.
+\end{itemize}
+
+\subsection{Ética e Privacidade}
+Os participantes responderam de forma anônima, sem coleta de dados pessoais sensíveis. As respostas foram utilizadas exclusivamente para fins acadêmicos e de melhoria do projeto.
+
+\end{document}
