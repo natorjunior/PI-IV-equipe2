@@ -89,7 +89,7 @@ INSERT INTO suplementos (nome, marca, tipo_suplemento, status_aprovacao, detalhe
 #Creatinas Reprovadas 21-99%
 
 
-INSERT INTO suplementos (nome, marca, tipo_suplemento, status_aprovacao, detalhes_laudo, orgao_laudo, data_laudo, id_usuario_cadastro, , status_suplemento) VALUES
+INSERT INTO suplementos (nome, marca, tipo_suplemento, status_aprovacao, detalhes_laudo, orgao_laudo, data_laudo, id_usuario_cadastro, status_suplemento) VALUES
 ('Dark Dragon', 'BODY NUTRY', 'CREATINA', 'REPROVADO', 'Laudo ABENUTRI - Reprovado (variação -21% a -99%)', 'ABENUTRI', '2024-05-26', 1, 'ATIVO'),
 ('CREATINA ENERGY', 'BODY NUTRY', 'CREATINA', 'REPROVADO', 'Laudo ABENUTRI - Reprovado (variação -21% a -99%)', 'ABENUTRI', '2024-05-26', 1, 'ATIVO'),
 ('CREATINA 100%', 'Melius Nutrition', 'CREATINA', 'REPROVADO', 'Laudo ABENUTRI - Reprovado (variação -21% a -99%)', 'ABENUTRI', '2024-05-26', 1, 'ATIVO'),
