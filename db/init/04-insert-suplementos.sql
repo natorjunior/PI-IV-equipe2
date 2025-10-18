@@ -12,7 +12,7 @@ INSERT INTO suplementos (nome, marca, tipo_suplemento, status_aprovacao, detalhe
 ('Creatine Turbo', 'BLACK SKULL', 'CREATINA', 'APROVADO', 'Laudo ABENUTRI - Aprovado (variação 0%-5%)', 'ABENUTRI', '2024-05-26', 1, 'ATIVO'),
 ('100% CREATINE', 'BODYBUILDERS', 'CREATINA', 'APROVADO', 'Laudo ABENUTRI - Aprovado (variação 0%-5%)', 'ABENUTRI', '2024-05-26', 1, 'ATIVO'),
 ('CREATINE', 'BODY NUTRI', 'CREATINA', 'APROVADO', 'Laudo ABENUTRI - Aprovado (variação 0%-5%)', 'ABENUTRI', '2024-05-26', 1, 'ATIVO'),
-('CREATINA PURA 200 g', 'BODY SHAPE', 'CREATINA', 'APROVado', 'Laudo ABENUTRI - Aprovado (variação 0%-5%)', 'ABENUTRI', '2024-05-26', 1, 'ATIVO'),
+('CREATINA PURA 200 g', 'BODY SHAPE', 'CREATINA', 'APROVADO', 'Laudo ABENUTRI - Aprovado (variação 0%-5%)', 'ABENUTRI', '2024-05-26', 1, 'ATIVO'),
 ('CREATINA', 'BRUTHAL SPORTS', 'CREATINA', 'APROVADO', 'Laudo ABENUTRI - Aprovado (variação 0%-5%)', 'ABENUTRI', '2024-05-26', 1, 'ATIVO'),
 ('GERMAN CREATINE', 'CELLGENIX', 'CREATINA', 'APROVADO', 'Laudo ABENUTRI - Aprovado (variação 0%-5%)', 'ABENUTRI', '2024-05-26', 1, 'ATIVO'),
 ('CREATINE', 'DARK LAB', 'CREATINA', 'APROVADO', 'Laudo ABENUTRI - Aprovado (variação 0%-5%)', 'ABENUTRI', '2024-05-26', 1, 'ATIVO'),

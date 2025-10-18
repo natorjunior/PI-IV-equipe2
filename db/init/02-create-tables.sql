@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS suplementos (
     data_laudo DATE,
     data_cadastro_sistema TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
+    FOREIGN KEY (id_usuario_cadastro) REFERENCES usuarios(id_usuario)
     
 );
 

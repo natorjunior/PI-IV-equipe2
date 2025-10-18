@@ -79,7 +79,7 @@ exports.login = (req, res) => {
           //  configurando a sessãao do usuário em um objeto
           req.session.usuario = {
             id: usuario.id_usuario,
-            tipo: usuario.tipo_usuairo,
+            tipo: usuario.tipo_usuario,
             status: usuario.status_usuario,
             nome: usuario.nome,
             email: usuario.email,
@@ -117,12 +117,12 @@ exports.logout = (req, res) => {
 // --- FUNÇÃO ADICIONADA ---
 // STATUS
 exports.status = (req, res) => {
-    // Verifica se o objeto 'usuario' existe na sessão
-    if (req.session.usuario && req.session.usuario.id) {
-        // Se existir, o usuário está logado
-        res.json({ loggedIn: true, user: req.session.usuario });
-    } else {
-        // Caso contrário, não está logado
-        res.json({ loggedIn: false });
-    }
+  // Verifica se o objeto 'usuario' existe na sessão
+  if (req.session.usuario && req.session.usuario.id) {
+    // Se existir, o usuário está logado
+    res.json({ loggedIn: true, user: req.session.usuario });
+  } else {
+    // Caso contrário, não está logado
+    res.json({ loggedIn: false });
+  }
 };
