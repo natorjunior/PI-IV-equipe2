@@ -472,3 +472,70 @@ main {
     font-size: 1.2rem;
     color: #666;
 }
+
+/* --- 8. ESTILOS DE RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS --- */
+
+/* Estas regras só serão aplicadas se a largura da tela for 768 pixels ou menos. */
+@media (max-width: 768px) {
+
+  /* --- AJUSTES GERAIS --- */
+  body {
+    /* Diminui o tamanho da fonte base para melhor leitura em telas pequenas. */
+    font-size: 14px;
+  }
+
+  main, .main-content {
+    /* Reduz o espaçamento lateral em telas menores. */
+    padding: 1.5rem 1rem;
+  }
+
+  /* --- AJUSTES NO CABEÇALHO (HEADER) --- */
+  header {
+    /* Empilha os blocos do cabeçalho (esquerda, centro, direita) verticalmente. */
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem; /* Adiciona um espaço entre os blocos empilhados. */
+  }
+
+  .header-left {
+    /* Centraliza o logo, título e menu de navegação. */
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  header h1 {
+    font-size: 1.3rem; /* Diminui o tamanho do título principal. */
+  }
+
+  nav ul {
+    /* Empilha os itens do menu para facilitar o toque. */
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .header-center {
+    /* Empilha a busca e o filtro e faz com que ocupem quase toda a largura. */
+    flex-direction: column;
+    width: 95%;
+  }
+
+  .search-bar, .category-filter {
+    width: 100%; /* Faz a busca e o filtro ocuparem toda a largura disponível. */
+  }
+
+  /* --- AJUSTES NOS CARDS E FORMULÁRIOS --- */
+  .form-container, .content-card {
+    /* Reduz o padding interno dos cards para economizar espaço. */
+    padding: 1.5rem;
+  }
+
+  /* --- AJUSTES NA GRADE DE PRODUTOS --- */
+  .featured-grid {
+    /* Reduz o espaço entre os cards de produtos. */
+    gap: 1rem;
+  }
+
+  .supplement-card h3 {
+      font-size: 1rem; /* Diminui um pouco o nome do produto no card. */
+  }
+}
