@@ -43,7 +43,7 @@ exports.login = (req, res) => {
   const { email, senha } = req.body;
   //  comando sql para selecionar o registro do usuário a partir do usuário de login
   const sql =
-    "SELECT id_usuario, nome, email, senha_hash FROM usuarios WHERE email = ?";
+    "SELECT id_usuario, tipo_usuario, status_usuario, nome, email, senha_hash FROM usuarios WHERE email = ?";
   //  realizando a consulta no banco
   db.query(sql, [email], async (err, results) => {
     //  tratando erro na consulta
@@ -83,7 +83,7 @@ exports.login = (req, res) => {
             tipo: usuario.tipo_usuario,
             status: usuario.status_usuario,
             nome: usuario.nome,
-            email: usuario.email,
+            email: usuario.email
           };
 
           //  enviando mensagem de sucesso do servidor para o frontend

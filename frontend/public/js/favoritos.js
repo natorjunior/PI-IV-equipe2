@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const card = document.createElement('div');
                 card.className = 'supplement-card';
                 card.innerHTML = `
-                    <h3>${product.nome_produto}</h3>
+                    <h3>${product.nome}</h3>
                     <p>Marca: ${product.marca}</p>
                     <p class="status-${product.status_aprovacao.toLowerCase()}">Status: ${product.status_aprovacao}</p>
                     <div class="card-footer">
