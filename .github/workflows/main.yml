@@ -42,6 +42,7 @@ jobs:
           echo '===> branch develop'
           git fetch
           git checkout develop
+          git checkout -- .
           git pull --ff-only
           
           echo '===> configurando node js'
