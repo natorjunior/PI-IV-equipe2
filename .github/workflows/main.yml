@@ -1,0 +1,62 @@
+name: Deploy automático
+
+on:
+  push:
+    branches: [main, develop]
+
+jobs:
+  deploy:
+    environment: HOMOLOG
+    runs-on: equipe2
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Carregar chave SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}   # chave PRIVADA, sem passphrase
+
+      - name: Deploy Homolog (develop)
+        if: github.ref == 'refs/heads/develop'
+        env:
+          USER:  ${{ secrets.SSH_USER }}
+          HOST:  ${{ secrets.SSH_HOST }}
+          PORT:  ${{ secrets.SSH_PORT }}   # pode estar vazio; bash usa 22 por padrão
+        run: |
+          set -e
+          mkdir -p ~/.ssh
+          ssh-keyscan -T 15 -t ed25519,rsa "$HOST" >> ~/.ssh/known_hosts
+
+          ssh -o StrictHostKeyChecking=yes \
+              -o BatchMode=yes \
+              -T \
+              -p "${PORT:-22}" \
+              "$USER@$HOST" bash -s <<'EOF'
+          set -Eeuo pipefail
+          trap 's=$?; echo "[ERRO] linha ${BASH_LINENO[0]} (cmd: ${BASH_COMMAND}) -> exit $s" >&2; exit $s' ERR
+
+          cd /home/nator/PI-IV-equipe2
+
+          echo '===> branch develop'
+          git fetch
+          git checkout develop
+          git checkout -- .
+          git pull --ff-only
+          
+          echo '===> configurando node js'
+          cd frontend
+          npm install
+          cd ../
+          
+          echo '===> compose down (homolog)'
+          docker compose -f docker-compose.yml down --remove-orphans || true
+
+          echo '===> compose pull/build/up (homolog)'
+          docker compose -f docker-compose.yml pull
+          docker compose -f docker-compose.yml up -d --build
+
+          echo '===> status'
+          docker compose -f docker-compose.yml ps
+          EOF

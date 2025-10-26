@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meus Favoritos - InfoSuplementos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/main.js" defer></script>
+    <script src="js/favoritos.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="resources/logo.png" alt="Logo InfoSuplementos" class="header-logo">
+            <h1>InfoSuplementos</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-center">
+            <div class="search-bar">
+                <form action="resultados.html" method="GET">
+                    <input type="search" name="q" placeholder="Buscar por nome ou marca..." required>
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <div class="category-filter">
+                <label for="category-select">Categoria:</label>
+                <select id="category-select" name="category">
+                    <option value="all">Todas</option>
+                    <option value="WHEY_PROTEIN">Proteína</option>
+                    <option value="CREATINA">Creatina</option>
+                </select>
+            </div>
+        </div>
+        <div class="user-actions">
+            <a href="favoritos.html" id="header-favorites-icon" class="header-icon" title="Favoritos"><i class="fa-solid fa-heart"></i></a>
+            <div id="guest-menu"><a href="login.html" class="botao-login">Login / Cadastro</a></div>
+            <div id="user-menu" class="hidden"><a href="#" id="logout-button" class="header-icon" title="Sair"><i class="fa-solid fa-right-from-bracket"></i></a></div>
+        </div>
+    </header>
+
+    <main class="main-content">
+      <h2>Meus Suplementos Favoritos</h2>
+      <div id="favorites-grid" class="featured-grid"></div>
+      <p id="empty-favorites-message" class="hidden">Você ainda não adicionou nenhum suplemento aos favoritos.</p>
+    </main>
+    
+    <footer>
+      <p>&copy; 2025 InfoSuplementos - Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

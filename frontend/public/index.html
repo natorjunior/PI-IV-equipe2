@@ -2,6 +2,7 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home - InfoSuplementos</title>
     <link
       rel="stylesheet"
@@ -12,65 +13,58 @@
   </head>
   <body>
     <header>
-      <div class="header-left">
-        <img
-          src="resources/logo.png"
-          alt="Logo InfoSuplementos"
-          class="header-logo"
-        />
+    <div class="header-left">
+        <img src="resources/logo.png" alt="Logo InfoSuplementos" class="header-logo">
         <h1>InfoSuplementos</h1>
         <nav>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="sobre.html">Sobre</a></li>
-            <li><a href="contato.html">Contato</a></li>
-          </ul>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
         </nav>
-      </div>
+    </div>
 
-      <div class="search-bar">
-        <input type="search" placeholder="Buscar suplementos..." />
-        <button type="submit"><i class="fa fa-search"></i></button>
-      </div>
+    <div class="header-center">
+        <div class="search-bar">
+            <form action="resultados.html" method="GET">
+                <input type="search" name="q" placeholder="Buscar por nome ou marca..." required>
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <div class="category-filter">
+            <label for="category-select">Categoria:</label>
+            <select id="category-select" name="category">
+                <option value="all">Todas</option>
+                <option value="proteina">Proteína</option>
+                <option value="creatina">Creatina</option>
+            </select>
+        </div>
+    </div>
 
-      <div class="user-actions">
-        <a
-          href="#"
-          id="header-favorites-icon"
-          class="header-icon"
-          title="Favoritos"
-        >
-          <i class="fa-solid fa-heart"></i>
+    <div class="user-actions">
+        <a href="favoritos.html" id="header-favorites-icon" class="header-icon" title="Favoritos">
+            <i class="fa-solid fa-heart"></i>
         </a>
         <div id="guest-menu">
-          <a href="login.html" class="botao-login">Login / Cadastro</a>
+            <a href="login.html" class="botao-login">Login / Cadastro</a>
         </div>
         <div id="user-menu" class="hidden">
-          <a href="#" id="logout-button" class="header-icon" title="Sair">
-            <i class="fa-solid fa-right-from-bracket"></i>
-          </a>
+            <a href="#" id="logout-button" class="header-icon" title="Sair">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
         </div>
-      </div>
-    </header>
-
-    <section class="filters">
-      <div class="category-filter">
-        <label for="category-select">Filtrar por Categoria:</label>
-        <select id="category-select" name="category">
-          <option value="all">Todas</option>
-          <option value="proteina">Proteína</option>
-          <option value="creatina">Creatina</option>
-        </select>
-      </div>
-    </section>
+    </div>
+</header>
 
     <main class="main-content">
       <h2>Suplementos em Destaque</h2>
       <div class="featured-grid">
-        <div class="supplement-card">
-          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
-            ><i class="fa-regular fa-heart"></i
-          ></a>
+
+        <div class="supplement-card" data-id="1" data-name="Creatina Monohidratada">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos">
+            <i class="fa-regular fa-heart"></i>
+          </a>
           <img
             src="https://darklabsuplementos.com.br/cdn/shop/files/Creatina_Monoidratada_Pura_Potel_300g_2500x2500_01.png?v=1753279944&width=823"
             alt="Creatina"
@@ -81,10 +75,10 @@
           </div>
         </div>
 
-        <div class="supplement-card">
-          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
-            ><i class="fa-regular fa-heart"></i
-          ></a>
+        <div class="supplement-card" data-id="2" data-name="Whey Protein Concentrado">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos">
+            <i class="fa-regular fa-heart"></i>
+          </a>
           <img
             src="https://m.media-amazon.com/images/I/71shMPMgVxL.jpg"
             alt="Whey Protein Concentrado"
@@ -95,10 +89,10 @@
           </div>
         </div>
 
-        <div class="supplement-card">
-          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
-            ><i class="fa-regular fa-heart"></i
-          ></a>
+        <div class="supplement-card" data-id="3" data-name="Whey Protein Isolado">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos">
+            <i class="fa-regular fa-heart"></i>
+          </a>
           <img
             src="https://m.media-amazon.com/images/I/71uZvfC-CTL._UF1000,1000_QL80_.jpg"
             alt="Whey Protein Isolado"
@@ -109,10 +103,10 @@
           </div>
         </div>
 
-        <div class="supplement-card">
-          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"
-            ><i class="fa-regular fa-heart"></i
-          ></a>
+        <div class="supplement-card" data-id="4" data-name="Creatina Creapure">
+          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos">
+            <i class="fa-regular fa-heart"></i>
+          </a>
           <img
             src="https://http2.mlstatic.com/D_NQ_NP_2X_744621-MLA86664171278_062025-F.webp"
             alt="Creatina Creapure"

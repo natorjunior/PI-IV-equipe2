@@ -1,19 +1,28 @@
-/* Importações e CSS Globais */
+/* --- 1. Importações e Variáveis Globais --- */
+
+/* Importa a fonte 'Poppins' do Google Fonts, para que possamos usá-la em todo o site. */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+/* ':root' é um seletor que aponta para o elemento raiz do documento (a tag <html>). */
+/* Usamos ele para declarar "variáveis CSS". Isso nos permite reutilizar as mesmas cores e valores */
+/* em todo o site e, se quisermos mudar o tema, só precisamos mudar o valor aqui. */
 :root {
-  --primary-color: #0fb0d8;
-  --primary-hover: #0d8aab;
-  --logout-color: #e63946;
-  --text-color: #333;
-  --text-light: #f4f4f4;
-  --bg-color: #f5f5f5;
-  --card-bg: rgba(255, 255, 255, 0.6);
-  --border-color: #ddd;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  --primary-color: #0fb0d8;       /* Cor principal para links, botões e destaques. */
+  --primary-hover: #0d8aab;      /* Cor para quando o mouse passa por cima de um elemento principal. */
+  --logout-color: #e63946;        /* Cor de destaque para ações de remoção/saída. */
+  --text-color: #333;             /* Cor padrão para textos escuros. */
+  --text-light: #f4f4f4;          /* Cor padrão para textos claros (usada em fundos escuros). */
+  --bg-color: #f5f5f5;             /* Cor de fundo geral da página. */
+  --card-bg: rgba(255, 255, 255, 0.6); /* Cor de fundo para os "cards", com transparência. */
+  --border-color: #ddd;           /* Cor para bordas sutis. */
+  --shadow-color: rgba(0, 0, 0, 0.1); /* Cor para as sombras dos cards. */
 }
 
-/* CSS Gerais do Body  */
+/* --- 2. Reset e Estilos Gerais do Body --- */
+
+/* O seletor '*' (asterisco) afeta TODOS os elementos da página. */
+/* Este é um "Reset CSS" básico para remover margens e preenchimentos padrão do navegador, */
+/* garantindo que nosso site tenha a mesma aparência em todos os navegadores. */
 * {
   margin: 0;
   padding: 0;
@@ -21,46 +30,62 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--bg-color);
-  background-image: url('../logoapp.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  color: var(--text-color);
-  display: flex; /* preencher a pagina */
+  font-family: 'Poppins', sans-serif; /* Define a fonte padrão para todo o site. */
+  background-color: var(--bg-color); /* Cor de fundo caso a imagem não carregue. */
+  background-image: url('../resources/logoapp.png'); /* Caminho para a imagem de fundo. */
+  background-size: cover; /* Faz a imagem cobrir toda a tela. */
+  background-position: center; /* Centraliza a imagem. */
+  background-attachment: fixed; /* Deixa a imagem de fundo fixa durante a rolagem da página. */
+  color: var(--text-color); /* Define a cor do texto padrão. */
+  
+  /* Este trio de propriedades (display, flex-direction, min-height) cria um layout "sticky footer". */
+  /* Ele garante que o rodapé (footer) fique sempre no final da tela, mesmo em páginas com pouco conteúdo. */
+  display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
+/* Estilos base para todos os links (tags <a>) */
 a {
   color: var(--primary-color);
-  text-decoration: none;
-  transition: color 0.3s ease; /* tempo de transiçao de cor */
+  text-decoration: none; /* Remove o sublinhado padrão dos links. */
+  transition: color 0.3s ease; /* Cria uma transição suave de cor ao passar o mouse. */
 }
 
 a:hover {
   color: var(--primary-hover);
-  text-decoration: underline;
+  text-decoration: underline; /* Adiciona o sublinhado de volta quando o mouse está sobre o link. */
 }
 
-/* CSS Cabeçalho e Rodapé */
+/* No seu style.css, SUBSTITUA as regras do header, header-left, search-bar e filters por este bloco completo */
+
+/* --- 3. Cabeçalho e Rodapé --- */
 header {
   background-color: #2c3e50;
   color: var(--text-light);
   padding: 1rem 2rem;
-  display: flex; /* lado a lado */
+  display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 2rem; /* Adiciona um espaço geral entre os blocos principais */
 }
 
 .header-left {
-  display: flex; /* lado a lado */
+  display: flex;
   align-items: center;
-  gap: 1.5rem; /* espaço entre */
+  gap: 1.5rem; 
+  flex-shrink: 0; /* Impede que este bloco encolha */
 }
 
-/* CSS logo no cabeçalho */
+/* NOVO: Container para a busca e o filtro no centro */
+.header-center {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Espaço entre a busca e o filtro */
+    width: 100%; /* Permite que ele ocupe o espaço central */
+    max-width: 700px; /* Largura máxima para a área central */
+}
+
 .header-logo {
     height: 40px;
     margin-right: -15px;
@@ -69,14 +94,14 @@ header {
 header h1 {
   margin: 0;
   font-size: 1.5rem;
-  line-height: 1; /* alinhamento */
+  line-height: 1;
 }
 
 nav ul {
   list-style: none;
-  display: flex; /* lado a lado */
+  display: flex;
   justify-content: center;
-  gap: 1.5rem; /* espaço entre */
+  gap: 1.5rem;
   margin: 0; 
 }
 
@@ -85,22 +110,89 @@ nav a {
   font-weight: 500;
 }
 
-.user-actions {
-  display: flex; /* lado a lado fav e logout*/
-  align-items: center;
-  gap: 1.5rem; /* espaço entre */
+/* AJUSTADO: A barra de busca agora ocupa todo o espaço do seu container */
+.search-bar {
+  flex-grow: 1; /* Faz a barra de busca esticar */
 }
+
+.search-bar form {
+    display: flex;
+    width: 100%;
+}
+
+.search-bar input {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: 1px solid #5a6a7a; /* Borda mais escura para combinar com o header */
+  background-color: #4a5c6e; /* Fundo escuro para o input */
+  color: var(--text-light); /* Texto claro */
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  font-size: 1rem;
+}
+
+/* Placeholder com cor mais clara */
+.search-bar input::placeholder {
+    color: #a0b0c0;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(15, 176, 216, 0.2);
+}
+
+.search-bar button {
+  padding: 0 15px;
+  border: 1px solid var(--primary-color);
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  border-radius: 0 8px 8px 0;
+  font-size: 1.1rem;
+}
+
+/* AJUSTADO: Estilos para o filtro de categoria dentro do header */
+.category-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.category-filter label {
+    color: var(--text-light); /* Garante que o texto "Categoria:" seja branco */
+    font-weight: 500;
+    white-space: nowrap; /* Impede que o texto quebre em duas linhas */
+}
+
+.category-filter select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #5a6a7a;
+  background-color: #4a5c6e;
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0; /* Impede que este bloco encolha */
+}
+
+
 
 .header-icon {
   color: var(--text-light);
   font-size: 1.5rem;
   text-decoration: none;
-  transition: color 0.3s ease, transform 0.3s ease; /* tempo de transiçao de cor */
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .header-icon:hover {
   color: var(--primary-color);
-  transform: scale(1.1); /* pequeno aumento do icone quando o mouse esta em cima */
+  transform: scale(1.1); /* Cria um pequeno efeito de zoom no ícone. */
   text-decoration: none;
 }
 
@@ -112,7 +204,7 @@ nav a {
   text-decoration: none;
   border-radius: 4px;
   font-weight: 500;
-  transition: background-color 0.3s ease;/* tempo de transiçao de cor pra acinzentado */
+  transition: background-color 0.3s ease;
 }
 
 .botao-login:hover {
@@ -121,75 +213,70 @@ nav a {
   color: white;
 }
 
-footer {
-  background-color: #2c3e50;
-  color: var(--text-light);
-  padding: 1rem 2rem;
-  text-align: center;
-}
-
-/* CSS dos Forms e Conteúdo em Cards */
+/* --- 4. Estilo dos Formulários e Conteúdo em Cards --- */
 main {
-  flex: 1; /* Preenchimento de tela */
-  display: flex; /* Preenchimento de tela */
+  flex: 1; /* Faz a área principal ocupar todo o espaço vertical disponível entre o header e o footer. */
+  display: flex;
+  /* Por padrão, centraliza o conteúdo das páginas (bom para login, sobre, contato). */
   justify-content: center;
   align-items: center;
   padding: 2rem;
 }
 
+/* Estilo unificado para os "cards" de conteúdo. */
 .form-container, .content-card {
-  background: var(--card-bg);
-  backdrop-filter: blur(5px); /* Transparencia do login e cadastro */
+  background: var(--card-bg); /* Fundo branco com transparência. */
+  backdrop-filter: blur(5px); /* Efeito de "vidro fosco" no que está atrás do card. */
   padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 8px 32px 0 var(--shadow-color); /* sombras */
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 var(--shadow-color); /* Sombra suave para dar profundidade. */
+  border: 1px solid rgba(255, 255, 255, 0.18); /* Borda sutil para o efeito de vidro. */
   width: 100%;
   max-width: 400px;
   text-align: center;
 }
 
 .content-card {
-    max-width: 600px;
+    max-width: 600px; /* Cards de conteúdo podem ser um pouco mais largos. */
 }
 
-.form-container h1 {
-  margin-bottom: 1.5rem;
-}
-
+/* Grupo de um campo de input e seu ícone. */
 .input-group {
-  position: relative; /* Posiçao vertical dos icones hehe */
+  position: relative; /* Define um contexto de posicionamento para o ícone. */
   margin-bottom: 1.5rem; 
   text-align: left;
 }
 
 .input-group i {
-  position: absolute; /* Posiçao horizontal dos icones hehe */
+  position: absolute; /* Posiciona o ícone em relação ao .input-group. */
   left: 15px;
-  top: 50%;
-  transform: translateY(-50%); /* transparencia 50 %*/
+  top: 50%; /* Posiciona o ícone na metade da altura do container. */
+  transform: translateY(-50%); /* Ajuste fino para centralizar o ícone verticalmente de forma perfeita. */
   color: #aaa;
   transition: color 0.3s ease;
 }
 
 .input-group input {
   width: 100%;
-  padding: 12px 12px 12px 40px;
-  border: 1px solid var(--border-color); /* Borda dos campos */
+  padding: 12px 12px 12px 40px; /* Preenchimento: 12px em cima, direita, baixo e 40px na esquerda para dar espaço ao ícone. */
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Estilos que se aplicam QUANDO o usuário clica no campo de input. */
 .input-group input:focus {
-  outline: none; /* Contorno para indicar que esta ativo */
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(15, 176, 216, 0.2); /* Cor da sombra */
+  outline: none; /* Remove a borda padrão do navegador. */
+  border-color: var(--primary-color); /* Muda a cor da borda para a cor primária. */
+  box-shadow: 0 0 0 3px rgba(15, 176, 216, 0.2); /* Cria um "brilho" suave ao redor do campo. */
 }
 
+/* O seletor '+' afeta o elemento que vem IMEDIATAMENTE APÓS o outro. */
+/* Aqui, ele muda a cor do ícone quando o input está focado. */
 .input-group input:focus + i { 
   color: var(--primary-color);
-} /* Muda junto a cor dos icones da mesma forma quando está ativo */
+}
 
 .form-container button {
   width: 100%;
@@ -213,11 +300,13 @@ main {
   margin-top: 1rem;
 }
 
-/* --- 5. Estilos da Página Principal --- */
+/* --- 5. Estilos da Página Principal e de Resultados --- */
+
+/* Esta classe sobrescreve o 'main' padrão para páginas com conteúdo de cima para baixo. */
 .main-content {
     flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
+    align-items: stretch; /* O conteúdo ocupa toda a largura. */
+    justify-content: flex-start; /* O conteúdo começa do topo. */
 }
 
 .main-content h2 {
@@ -235,33 +324,26 @@ main {
 }
 
 .search-bar {
-  display: flex;
   width: 40%;
   max-width: 500px;
 }
 
+/* Regra para o <form> dentro da barra de busca, para alinhar o input e o botão. */
+.search-bar form {
+    display: flex;
+    width: 100%;
+}
+
 .search-bar input {
-  width: 100%;
-  padding: 10px 15px;
-  border: 1px solid var(--border-color);
+  flex-grow: 1; /* Faz o campo de input crescer e ocupar todo o espaço disponível. */
   border-right: none;
   border-radius: 8px 0 0 8px;
-  font-size: 1rem;
-}
-.search-bar input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(15, 176, 216, 0.2);
+  /* ... outros estilos ... */
 }
 
 .search-bar button {
-  padding: 0 15px;
-  border: 1px solid var(--primary-color);
-  background-color: var(--primary-color);
-  color: white;
-  cursor: pointer;
   border-radius: 0 8px 8px 0;
-  font-size: 1.1rem;
+  /* ... outros estilos ... */
 }
 
 .category-filter select {
@@ -271,36 +353,35 @@ main {
   font-size: 1rem;
 }
 
+/* Grade de produtos */
 .featured-grid {
   display: grid;
+  /* Cria uma grade responsiva: o navegador encaixa o máximo de colunas de no mínimo 250px que puder. */
+  /* Em telas menores, as colunas quebram para baixo automaticamente. */
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
 }
 
 .supplement-card {
-  position: relative;
+  position: relative; /* Contexto de posicionamento para o ícone de favorito. */
   background-color: #fff;
   border-radius: 12px;
-  overflow: hidden;
+  overflow: hidden; /* Garante que nada "vaze" para fora do card arredondado. */
   box-shadow: 0 4px 12px var(--shadow-color);
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .supplement-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    transform: translateY(-5px); /* Efeito de "levantar" o card. */
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15); /* Sombra mais pronunciada. */
 }
 
 .supplement-card img {
   width: 100%;
   height: 220px;
-  object-fit: contain;
+  object-fit: contain; /* Garante que a imagem inteira apareça, sem ser cortada. */
   padding: 10px;
-}
-
-.supplement-card h3 {
-  margin: 1rem 0 0.5rem 0;
 }
 
 .card-footer {
@@ -310,7 +391,7 @@ main {
 .buy-button {
   display: inline-block;
   padding: 10px 1.5rem;
-  background-color: #28a745;
+  background-color: #28a745; /* Verde para ação de compra/detalhes. */
   color: white;
   text-decoration: none;
   border-radius: 8px;
@@ -325,12 +406,14 @@ main {
 }
 
 /* --- 6. Estilos de UI Dinâmica --- */
+
+/* Classe simples que usamos com JavaScript para esconder elementos. */
 .hidden {
-    display: none !important;
+    display: none !important; /* '!important' garante que esta regra sempre vença. */
 }
 
 .favorite-icon {
-    position: absolute;
+    position: absolute; /* Posiciona o ícone em relação ao '.supplement-card'. */
     top: 15px;
     right: 15px;
     font-size: 1.5rem;
@@ -338,15 +421,119 @@ main {
     cursor: pointer;
     transition: color 0.3s ease, transform 0.3s ease;
     background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 50%;
+    border-radius: 50%; /* Deixa o fundo do ícone perfeitamente redondo. */
     width: 40px;
     height: 40px;
+    /* Este trio de 'flex' centraliza o ícone de coração dentro do seu fundo redondo. */
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .favorite-icon:hover {
     color: var(--logout-color);
     transform: scale(1.1);
     text-decoration: none;
+}
+
+/* --- 7. Estilos Adicionais (Página de Resultados, Favoritos, etc.) --- */
+
+/* Classe para o status 'APROVADO' nos cards. */
+.status-aprovado {
+    color: #28a745; /* Verde */
+    font-weight: bold;
+}
+
+/* Classe para o status 'REPROVADO' nos cards. */
+.status-reprovado {
+    color: #dc3545; /* Vermelho */
+    font-weight: bold;
+}
+
+/* Estilo para o botão 'Remover' na página de favoritos. */
+.remove-favorite-btn {
+  display: inline-block;
+  padding: 10px 1.5rem;
+  background-color: var(--logout-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remove-favorite-btn:hover {
+    background-color: #c42c39;
+}
+
+/* Estilo para a mensagem que aparece quando a lista de favoritos está vazia. */
+#empty-favorites-message {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* --- 8. ESTILOS DE RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS --- */
+
+/* Estas regras só serão aplicadas se a largura da tela for 768 pixels ou menos. */
+@media (max-width: 768px) {
+
+  /* --- AJUSTES NO CABEÇALHO (A MUDANÇA MAIS IMPORTANTE) --- */
+  header {
+    /* Força os 3 blocos principais (esquerda, centro, direita) a se empilharem */
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1.5rem; /* Adiciona um espaço vertical entre os blocos empilhados */
+  }
+
+  .header-left, .header-center, .user-actions {
+    /* Garante que todos os blocos ocupem a largura total e centralizem seu conteúdo */
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Empilha o logo/título e o menu de navegação */
+  .header-left {
+      flex-direction: column;
+      gap: 1rem;
+  }
+
+  /* Empilha a busca e o filtro de categoria */
+  .header-center {
+      flex-direction: column;
+      gap: 1rem;
+  }
+
+  .search-bar {
+      width: 100%; /* Faz a busca ocupar toda a largura */
+  }
+
+  /* --- AJUSTES GERAIS --- */
+  main, .main-content {
+    padding: 1.5rem 1rem; /* Reduz o espaçamento lateral */
+  }
+
+  /* --- AJUSTES NA GRADE DE PRODUTOS --- */
+  .featured-grid {
+    /* Força a grade a ter no máximo 2 colunas em telas de celular */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .supplement-card h3 {
+      font-size: 0.9rem; /* Diminui um pouco o nome do produto no card */
+  }
+
+  .buy-button {
+      padding: 8px 12px; /* Diminui um pouco o botão */
+      font-size: 0.9rem;
+  }
+}
+
+/* Regra adicional para telas MUITO pequenas (ex: celulares mais antigos) */
+@media (max-width: 480px) {
+    .featured-grid {
+        /* Em telas muito estreitas, mostra apenas 1 produto por linha */
+        grid-template-columns: 1fr;
+    }
 }
