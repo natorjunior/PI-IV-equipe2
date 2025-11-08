@@ -537,3 +537,70 @@ main {
         grid-template-columns: 1fr;
     }
 }
+
+/* --- 9. ESTILOS DO POPUP DE PRIVACIDADE --- */
+
+.popup-overlay {
+  /* Posicionamento */
+  position: fixed; /* Fica fixo na tela, mesmo com rolagem */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000; /* Garante que fique acima de todo o conteúdo */
+
+  /* Aparência */
+  background: rgba(0, 0, 0, 0.7); /* Fundo escuro semitransparente */
+  backdrop-filter: blur(3px); /* Desfoca o conteúdo atrás (efeito moderno) */
+  
+  /* Centralização do card */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.popup-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 100%;
+  text-align: left;
+}
+
+.popup-container h3 {
+  margin-bottom: 1rem;
+}
+
+.popup-container p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+#accept-privacy-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+#accept-privacy-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Estilo para o conteúdo do card quando não há imagem */
+.card-content-no-image {
+  padding: 2.5rem 1rem 1rem 1rem; /* Adiciona mais padding no topo onde a imagem estaria */
+  min-height: 100px; /* Garante uma altura mínima para o card */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
