@@ -157,3 +157,23 @@ exports.removerFavorito = (req, res) => {
     res.json({ message: "Favorito removido com sucesso!" });
   });
 };
+
+// --- NOVA FUNÇÃO ---
+// exportando o método para listar 3 produtos aleatórios
+exports.listarDestaques = (req, res) => {
+  // Este comando SQL seleciona 3 produtos aleatórios da sua tabela
+  const sql = `
+    SELECT id_suplemento, nome_produto, marca, status_aprovacao 
+    FROM suplementos 
+    ORDER BY RAND() 
+    LIMIT 3
+  `;
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error("Erro ao buscar suplementos em destaque:", err);
+      return res.status(500).json({ message: "Erro ao buscar destaques." });
+    }
+    res.json(results);
+  });
+};

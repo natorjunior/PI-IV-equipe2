@@ -8,6 +8,9 @@ const produtosController = require("../controllers/produtosController");
 // Rota para pesquisar produtos: /api/infosupplementos/search?q=...
 router.get("/search", produtosController.buscarProduto);
 
+// Rota PÚBLICA para buscar os 3 produtos em destaque da home
+router.get("/destaques", produtosController.listarDestaques);
+
 // --- ROTAS PROTEGIDAS (PRECISAM DE LOGIN) ---
 
 // Rota para LISTAR os favoritos do usuário logado
