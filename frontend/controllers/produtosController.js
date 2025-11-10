@@ -163,9 +163,9 @@ exports.removerFavorito = (req, res) => {
 exports.listarDestaques = (req, res) => {
   // Este comando SQL seleciona 3 produtos aleatórios da sua tabela
   const sql = `
-    SELECT id_suplemento, nome_produto, marca, status_aprovacao 
-    FROM suplementos 
-    ORDER BY RAND() 
+    SELECT id_suplemento, nome, marca, status_aprovacao
+    FROM suplementos
+    ORDER BY RAND()
     LIMIT 3
   `;
 
