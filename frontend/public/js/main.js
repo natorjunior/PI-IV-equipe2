@@ -149,7 +149,7 @@ async function carregarDestaques() {
                   <p>Marca: ${product.marca}</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="buy-button">Ver Detalhes</a>
+                    <a href="detalhes.html?id=${product.id_suplemento}" class="buy-button">Ver Detalhes</a>
                 </div>
             `;
             grid.appendChild(card);

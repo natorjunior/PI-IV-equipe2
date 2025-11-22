@@ -13,21 +13,29 @@ exports.buscarProduto = (req, res) => {
   //  lista de parâmetros de busca
   let params = [];
 
+  let selectColumns = "s.id_suplemento, s.nome, s.marca, s.tipo_suplemento, s.status_aprovacao";
   //  reatribuindo o comando de acordo com o tipo de usuário
   if (!req.session.usuario || req.session.usuario.tipo === "COMUM") {
+    
+   
     //  caso a busca contenha parâmetros
     if (query) {
-      sql = `
-        SELECT id_suplemento, nome, marca, tipo_suplemento, status_aprovacao
-        FROM suplementos
-        WHERE nome LIKE ? OR marca LIKE ? OR tipo_suplemento LIKE ? OR status_aprovacao LIKE ?`;
-      //  alimentanto a lista com os parâmetros de busca
-      params = [query, query, query, query];
-      //  caso a busca não contenha parâmetros
-    } else {
-      sql =
-        "SELECT id_suplemento, nome, marca, tipo_suplemento, status_aprovacao FROM suplementos";
-    }
+    sql = `
+        SELECT ${selectColumns}, ANY_VALUE(m.caminho_midia) AS imagem_url
+        FROM suplementos s
+        LEFT JOIN midias m ON s.id_suplemento = m.id_suplemento AND m.tipo_midia = 'IMAGEM'
+        WHERE s.nome LIKE ? OR s.marca LIKE ? OR s.tipo_suplemento LIKE ?
+        GROUP BY s.id_suplemento
+    `;
+    params = [query, query, query];
+  } else {
+    sql = `
+        SELECT ${selectColumns}, ANY_VALUE(m.caminho_midia) AS imagem_url
+        FROM suplementos s
+        LEFT JOIN midias m ON s.id_suplemento = m.id_suplemento AND m.tipo_midia = 'IMAGEM'
+        GROUP BY s.id_suplemento
+    `;
+  }
     //  comando para usuário administrador
   } else if (req.session.usuario.tipo === "ADMINISTRADOR") {
     if (query) {
@@ -66,6 +74,39 @@ exports.buscarProduto = (req, res) => {
   });
 };
 
+// BUSCAR DETALHES POR ID (COMPLETO)
+exports.buscarPorId = (req, res) => {
+    const { id_suplemento } = req.params;
+
+    const sql = `
+        SELECT 
+            s.id_suplemento, 
+            s.nome, 
+            s.marca, 
+            s.tipo_suplemento, 
+            s.status_aprovacao,
+            s.detalhes_laudo,
+            s.orgao_laudo,
+            s.data_laudo,
+            ANY_VALUE(m.caminho_midia) AS imagem_url
+        FROM suplementos s
+        LEFT JOIN midias m ON s.id_suplemento = m.id_suplemento AND m.tipo_midia = 'IMAGEM'
+        WHERE s.id_suplemento = ?
+        GROUP BY s.id_suplemento
+    `;
+
+    db.query(sql, [id_suplemento], (err, results) => {
+        if (err) {
+            console.error("Erro ao buscar detalhes:", err);
+            return res.status(500).json({ message: "Erro no servidor." });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ message: "Suplemento não encontrado." });
+        }
+        res.json(results[0]);
+    });
+};
+
 // --- FUNÇÕES PROTEGIDAS (PRECISAM DE LOGIN) ---
 
 // Define e exporta a função para listar os favoritos.
@@ -83,18 +124,16 @@ exports.listarFavoritos = (req, res) => {
   // Comando SQL que usa JOIN para "juntar" a tabela de suplementos com a de favoritos.
   // Ele seleciona apenas os suplementos cujo ID está na lista de favoritos DO USUÁRIO LOGADO.
   const sql = `
-        SELECT s.id_suplemento, s.nome, s.marca, s.status_aprovacao
-        FROM suplementos s
-        JOIN favoritos f ON s.id_suplemento = f.id_suplemento
-        WHERE f.id_usuario = ?
-    `;
-  // Executa a query, passando o ID do usuário como parâmetro para o 'WHERE'.
+    SELECT s.id_suplemento, s.nome, s.marca, s.status_aprovacao,
+           ANY_VALUE(m.caminho_midia) AS imagem_url
+    FROM suplementos s
+    JOIN favoritos f ON s.id_suplemento = f.id_suplemento
+    LEFT JOIN midias m ON s.id_suplemento = m.id_suplemento AND m.tipo_midia = 'IMAGEM'
+    WHERE f.id_usuario = ?
+    GROUP BY s.id_suplemento
+  `;
   db.query(sql, [userId], (err, results) => {
-    if (err) {
-      console.error("Erro ao buscar favoritos:", err);
-      return res.status(500).json({ message: "Erro ao buscar favoritos." });
-    }
-    // Envia a lista de favoritos encontrada para o front-end.
+    if (err) return res.status(500).json({ message: "Erro ao buscar favoritos." });
     res.json(results);
   });
 };
@@ -158,22 +197,56 @@ exports.removerFavorito = (req, res) => {
   });
 };
 
-// --- NOVA FUNÇÃO ---
-// exportando o método para listar 3 produtos aleatórios
 exports.listarDestaques = (req, res) => {
-  // Este comando SQL seleciona 3 produtos aleatórios da sua tabela
   const sql = `
-    SELECT id_suplemento, nome, marca, status_aprovacao
-    FROM suplementos
+    SELECT s.id_suplemento, s.nome, s.marca, s.status_aprovacao,
+           ANY_VALUE(m.caminho_midia) AS imagem_url
+    FROM suplementos s
+    LEFT JOIN midias m ON s.id_suplemento = m.id_suplemento AND m.tipo_midia = 'IMAGEM'
+    GROUP BY s.id_suplemento
     ORDER BY RAND()
     LIMIT 3
   `;
 
   db.query(sql, (err, results) => {
     if (err) {
-      console.error("Erro ao buscar suplementos em destaque:", err);
+      console.error("Erro ao buscar destaques:", err);
       return res.status(500).json({ message: "Erro ao buscar destaques." });
     }
     res.json(results);
   });
+};
+
+// --- NOVA FUNÇÃO: Buscar Detalhes por ID ---
+exports.buscarPorId = (req, res) => {
+    const { id_suplemento } = req.params;
+
+    // Note que ajustei para usar 's.nome' e 's.tipo_suplemento' conforme sua nova tabela
+    const sql = `
+        SELECT 
+            s.id_suplemento, 
+            s.nome, 
+            s.marca, 
+            s.tipo_suplemento, 
+            s.status_aprovacao,
+            s.detalhes_laudo,
+            s.orgao_laudo,
+            s.data_laudo,
+            ANY_VALUE(m.caminho_midia) AS imagem_url
+        FROM suplementos s
+        LEFT JOIN midias m ON s.id_suplemento = m.id_suplemento AND m.tipo_midia = 'IMAGEM'
+        WHERE s.id_suplemento = ?
+        GROUP BY s.id_suplemento
+    `;
+
+    db.query(sql, [id_suplemento], (err, results) => {
+        if (err) {
+            console.error("Erro ao buscar detalhes:", err);
+            return res.status(500).json({ message: "Erro no servidor." });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ message: "Suplemento não encontrado." });
+        }
+        res.json(results[0]);
+    });
 };
