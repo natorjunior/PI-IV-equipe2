@@ -12,6 +12,7 @@ const path = require("path");
 //  importndo rotas
 const authRoutes = require("./routes/authRoutes");
 const produtosRoutes = require("./routes/produtosRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 
 //  criando a aplicação express
 const app = express();
@@ -52,6 +53,8 @@ app.use(
 app.use("/api/auth", authRoutes);
 //  rota de listagem de usuários
 app.use("/api/infosuplementos", produtosRoutes);
+//  rota de chat com o bot
+app.use("/api/chat", chatRoutes);
 
 //  iniciando servidor
 app.listen(PORT, () => {
