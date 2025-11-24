@@ -735,3 +735,81 @@ main {
         right: -10px; /* Ajuste fino */
     }
 }
+
+/* --- 12. ESTILOS DO PAINEL ADMIN --- */
+
+.admin-container {
+    width: 100%;
+    max-width: 1200px;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+/* Tabela */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th, .admin-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-table th {
+    background-color: #f8f9fa;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.admin-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Botões de Ação na Tabela */
+.action-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin-right: 10px;
+    transition: transform 0.2s;
+}
+
+.btn-edit { color: #f39c12; }
+.btn-delete { color: var(--logout-color); }
+
+.action-btn:hover { transform: scale(1.2); }
+
+/* Modal Form Layout */
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+.form-row .input-group {
+    flex: 1;
+}
+
+/* Select Style */
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: white;
+    color: #555;
+}

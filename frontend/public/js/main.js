@@ -8,6 +8,7 @@ async function setupPage() {
     const headerFavoritesIcon = document.getElementById('header-favorites-icon');
 
     let isLoggedIn = false; // Começamos com o padrão 'não logado'
+    let user = null;
 
     // --- LÓGICA DO POPUP DE PRIVACIDADE
     const privacyPopup = document.getElementById('privacy-popup');
@@ -36,12 +37,28 @@ async function setupPage() {
         const response = await fetch('/api/auth/status', { credentials: 'include' });
         const data = await response.json();
         isLoggedIn = data.loggedIn; // Atualiza nosso status com a resposta REAL do servidor
+        user = data.user;
     } catch (error) {
         console.error("Erro ao verificar status de login:", error);
         isLoggedIn = false;
+        user = null;
     }
     
-    // --- 3. ATUALIZAÇÃO DA INTERFACE (HEADER) ---
+
+    // --- 3. Link de Admin ---
+const headerNav = document.querySelector('.header-left nav ul');
+// Remove botão admin antigo se existir (para evitar duplicatas ao navegar)
+const existingAdminBtn = document.getElementById('admin-link-li');
+if(existingAdminBtn) existingAdminBtn.remove();
+
+if (isLoggedIn && user.tipo === 'ADMINISTRADOR') {
+    const li = document.createElement('li');
+    li.id = 'admin-link-li';
+    li.innerHTML = '<a href="admin.html" style="color: #e67e22; font-weight: bold;">Admin</a>';
+    headerNav.appendChild(li);
+}
+
+    // --- 4. ATUALIZAÇÃO DA INTERFACE (HEADER) ---
     if (isLoggedIn) {
         guestMenu.classList.add('hidden');
         userMenu.classList.remove('hidden');
@@ -53,7 +70,7 @@ async function setupPage() {
     // --- CARREGAR DESTAQUES (DINÂMICO) ---
     await carregarDestaques();
 
-    // --- 4. LÓGICA DE EVENTOS (CLICKS) ---
+    // --- 5. LÓGICA DE EVENTOS (CLICKS) ---
 
     // Logout
     if (logoutButton) {
@@ -117,7 +134,7 @@ async function setupPage() {
     }
 }
 
-// --- FUNÇÃO PARA CARREGAR OS CARDS DE DESTAQUE ---
+// --- 6. FUNÇÃO PARA CARREGAR OS CARDS DE DESTAQUE ---
 async function carregarDestaques() {
     const grid = document.querySelector('.featured-grid');
     if (!grid) return; // Só executa se a grade existir na página
@@ -133,21 +150,23 @@ async function carregarDestaques() {
             return;
         }
 
-        // Cria o HTML para cada produto (sem a tag <img>)
         produtos.forEach(product => {
             const card = document.createElement('div');
             card.className = 'supplement-card';
             card.setAttribute('data-id', product.id_suplemento);
             card.setAttribute('data-name', product.nome_produto);
 
+            // Define a imagem (usa o placeholder se vier nulo)
+            const imgUrl = product.imagem_url || 'resources/logo.png';
+
+            // HTML ATUALIZADO COM A TAG IMG
             card.innerHTML = `
                 <a href="#" class="favorite-icon" title="Adicionar aos Favoritos">
                     <i class="fa-regular fa-heart"></i>
                 </a>
-                <div class="card-content-no-image">
-                  <h3>${product.nome_produto}</h3>
-                  <p>Marca: ${product.marca}</p>
-                </div>
+                <img src="${imgUrl}" alt="${product.nome_produto}" class="product-image">
+                <h3>${product.nome_produto}</h3>
+                <p class="product-brand">${product.marca}</p>
                 <div class="card-footer">
                     <a href="detalhes.html?id=${product.id_suplemento}" class="buy-button">Ver Detalhes</a>
                 </div>
