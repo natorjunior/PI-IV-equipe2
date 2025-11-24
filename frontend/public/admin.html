@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - InfoSuplementos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+    <script src="js/admin.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="resources/logo.png" alt="Logo" class="header-logo">
+            <h1>InfoSuplementos <span style="font-size: 0.6em; color: #aaa;">| Admin</span></h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Voltar ao Site</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="user-actions">
+            <div id="user-menu">
+                <span style="color: white; margin-right: 10px;">Olá, Administrador</span>
+                <a href="#" id="logout-button" class="header-icon" title="Sair">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="admin-container">
+            <div class="admin-header">
+                <h2>Gerenciar Suplementos</h2>
+                <button id="btn-novo-produto" class="buy-button">
+                    <i class="fa-solid fa-plus"></i> Novo Produto
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Marca</th>
+                            <th>Tipo</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-produtos">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div id="modal-produto" class="popup-overlay hidden">
+        <div class="popup-container" style="max-width: 700px;">
+            <h3 id="modal-titulo">Novo Produto</h3>
+            <form id="form-produto">
+                <input type="hidden" id="prod-id">
+                
+                <div class="form-row">
+                    <div class="input-group">
+                        <input type="text" id="prod-nome" placeholder="Nome do Produto" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="prod-marca" placeholder="Marca" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <select id="prod-tipo" required>
+                            <option value="" disabled selected>Tipo de Suplemento</option>
+                            <option value="WHEY_PROTEIN">Whey Protein</option>
+                            <option value="CREATINA">Creatina</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <select id="prod-status" required>
+                            <option value="" disabled selected>Status da Análise</option>
+                            <option value="APROVADO">Aprovado</option>
+                            <option value="REPROVADO">Reprovado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" id="prod-img" placeholder="URL da Imagem (Ex: resources/img.jpg)">
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <input type="text" id="prod-orgao" placeholder="Órgão Avaliador (Ex: ABENUTRI)">
+                    </div>
+                    <div class="input-group">
+                        <input type="date" id="prod-data">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <textarea id="prod-detalhes" rows="4" placeholder="Detalhes do laudo..." style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;"></textarea>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit">Salvar</button>
+                    <button type="button" id="btn-cancelar" style="background-color: #666;">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 InfoSuplementos - Painel Administrativo</p>
+    </footer>
+</body>
+</html>
