@@ -11,6 +11,9 @@ router.get("/search", produtosController.buscarProduto);
 // Rota PÚBLICA para buscar os 3 produtos em destaque da home
 router.get("/destaques", produtosController.listarDestaques);
 
+// Rota PÚBLICA para exibir os detalhes dos produtos.
+router.get("/:id_suplemento", produtosController.buscarPorId);
+
 // --- ROTAS PROTEGIDAS (PRECISAM DE LOGIN) ---
 
 // Rota para LISTAR os favoritos do usuário logado
