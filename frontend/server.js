@@ -13,6 +13,7 @@ const path = require("path");
 const authRoutes = require("./routes/authRoutes");
 const produtosRoutes = require("./routes/produtosRoutes");
 const chatRoutes = require("./routes/chatRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 //  criando a aplicação express
 const app = express();
@@ -55,6 +56,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/infosuplementos", produtosRoutes);
 //  rota de chat com o bot
 app.use("/api/chat", chatRoutes);
+//  rotas administrativas
+app.use("/api/admin", adminRoutes);
 
 //  iniciando servidor
 app.listen(PORT, () => {

@@ -192,3 +192,19 @@ exports.atualizarPerfil = async (req, res) => {
         res.status(500).json({ message: "Erro interno ao atualizar perfil" });
     }
 };
+
+// --- NOVA FUNÇÃO: Middleware para verificar se é Admin ---
+exports.verificarAdmin = (req, res, next) => {
+    // 1. Verifica se está logado
+    if (!req.session.usuario) {
+        return res.status(401).json({ message: "Acesso negado. Faça login." });
+    }
+
+    // 2. Verifica se é ADMINISTRADOR
+    if (req.session.usuario.tipo !== 'ADMINISTRADOR') {
+        return res.status(403).json({ message: "Acesso negado. Apenas administradores." });
+    }
+
+    // 3. Se passou, pode continuar para a próxima função
+    next();
+};
