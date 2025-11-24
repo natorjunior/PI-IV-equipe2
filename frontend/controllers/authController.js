@@ -127,3 +127,68 @@ exports.status = (req, res) => {
     res.json({ loggedIn: false });
   }
 };
+
+// --- NOVA FUNÇÃO: Obter dados do perfil ---
+exports.obterPerfil = (req, res) => {
+    // Verifica sessão
+    if (!req.session.usuario) {
+        return res.status(401).json({ message: "Não autenticado" });
+    }
+
+    const id = req.session.usuario.id;
+    // Buscamos nome, email e data de cadastro (NUNCA a senha)
+    const sql = "SELECT nome, email, created_at FROM usuarios WHERE id_usuario = ?";
+    
+    db.query(sql, [id], (err, results) => {
+        if (err) {
+            console.error("Erro ao buscar perfil:", err);
+            return res.status(500).json({ message: "Erro ao buscar perfil" });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ message: "Usuário não encontrado" });
+        }
+        res.json(results[0]);
+    });
+};
+
+// --- NOVA FUNÇÃO: Atualizar perfil ---
+exports.atualizarPerfil = async (req, res) => {
+    if (!req.session.usuario) {
+        return res.status(401).json({ message: "Não autenticado" });
+    }
+
+    const id = req.session.usuario.id;
+    const { nome, novaSenha } = req.body;
+
+    try {
+        let sql;
+        let params;
+
+        // Se o usuário enviou uma nova senha, precisamos criar o hash dela
+        if (novaSenha && novaSenha.trim() !== "") {
+            const hashedPassword = await bcrypt.hash(novaSenha, 10);
+            sql = "UPDATE usuarios SET nome = ?, senha_hash = ? WHERE id_usuario = ?";
+            params = [nome, hashedPassword, id];
+        } else {
+            // Se não enviou senha, atualiza só o nome
+            sql = "UPDATE usuarios SET nome = ? WHERE id_usuario = ?";
+            params = [nome, id];
+        }
+
+        db.query(sql, params, (err, result) => {
+            if (err) {
+                console.error("Erro ao atualizar perfil:", err);
+                return res.status(500).json({ message: "Erro ao atualizar perfil" });
+            }
+            
+            // Atualiza o nome na sessão também
+            req.session.usuario.nome = nome;
+            
+            res.json({ message: "Perfil atualizado com sucesso!" });
+        });
+
+    } catch (error) {
+        console.error("Erro no servidor:", error);
+        res.status(500).json({ message: "Erro interno ao atualizar perfil" });
+    }
+};
