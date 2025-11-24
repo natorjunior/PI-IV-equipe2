@@ -8,6 +8,7 @@ async function setupPage() {
     const headerFavoritesIcon = document.getElementById('header-favorites-icon');
 
     let isLoggedIn = false; // Começamos com o padrão 'não logado'
+    let user = null;
 
     // --- LÓGICA DO POPUP DE PRIVACIDADE
     const privacyPopup = document.getElementById('privacy-popup');
@@ -36,12 +37,28 @@ async function setupPage() {
         const response = await fetch('/api/auth/status', { credentials: 'include' });
         const data = await response.json();
         isLoggedIn = data.loggedIn; // Atualiza nosso status com a resposta REAL do servidor
+        user = data.user;
     } catch (error) {
         console.error("Erro ao verificar status de login:", error);
         isLoggedIn = false;
+        user = null;
+    }
+
+    // --- 3. LINK DE ADMIN (Lógica Segura) ---
+    const headerNav = document.querySelector('.header-left nav ul');
+    // Remove botão admin antigo se existir para não duplicar
+    const existingAdminBtn = document.getElementById('admin-link-li');
+    if(existingAdminBtn) existingAdminBtn.remove();
+
+    // Verifica se está logado E se o objeto user existe E se o tipo é ADMINISTRADOR
+    if (isLoggedIn && user && user.tipo === 'ADMINISTRADOR') {
+        const li = document.createElement('li');
+        li.id = 'admin-link-li';
+        li.innerHTML = '<a href="admin.html" style="color: #e67e22; font-weight: bold;">Admin</a>';
+        headerNav.appendChild(li);
     }
     
-    // --- 3. ATUALIZAÇÃO DA INTERFACE (HEADER) ---
+    // --- 4. ATUALIZAÇÃO DA INTERFACE (HEADER) ---
     if (isLoggedIn) {
         guestMenu.classList.add('hidden');
         userMenu.classList.remove('hidden');
@@ -50,10 +67,10 @@ async function setupPage() {
         userMenu.classList.add('hidden');
     }
 
-    // --- CARREGAR DESTAQUES (DINÂMICO) ---
+    // --- 5. CARREGAR DESTAQUES (DINÂMICO) ---
     await carregarDestaques();
 
-    // --- 4. LÓGICA DE EVENTOS (CLICKS) ---
+    // --- 6. LÓGICA DE EVENTOS (CLICKS) ---
 
     // Logout
     if (logoutButton) {
@@ -115,12 +132,28 @@ async function setupPage() {
             }
         });
     }
+
+// --- 7. LÓGICA DE BUSCA COM FILTRO ---
+    const searchForm = document.querySelector('.search-bar form');
+    const categorySelect = document.getElementById('category-select');
+
+    if (searchForm && categorySelect) {
+        searchForm.addEventListener('submit', (event) => {
+            event.preventDefault(); 
+
+            const term = searchForm.querySelector('input').value;
+            const category = categorySelect.value;
+
+            window.location.href = `resultados.html?q=${encodeURIComponent(term)}&category=${encodeURIComponent(category)}`;
+        });
+    }
 }
 
-// --- FUNÇÃO PARA CARREGAR OS CARDS DE DESTAQUE ---
+// --- FUNÇÃO AUXILIAR: CARREGAR DESTAQUES ---
 async function carregarDestaques() {
     const grid = document.querySelector('.featured-grid');
-    if (!grid) return; // Só executa se a grade existir na página
+    // Se não houver grade (ex: página de contato), sai da função
+    if (!grid) return; 
 
     try {
         const response = await fetch('/api/infosuplementos/destaques');
@@ -133,21 +166,21 @@ async function carregarDestaques() {
             return;
         }
 
-        // Cria o HTML para cada produto (sem a tag <img>)
         produtos.forEach(product => {
             const card = document.createElement('div');
             card.className = 'supplement-card';
             card.setAttribute('data-id', product.id_suplemento);
             card.setAttribute('data-name', product.nome_produto);
 
+            const imgUrl = product.imagem_url || 'resources/logo.png';
+
             card.innerHTML = `
                 <a href="#" class="favorite-icon" title="Adicionar aos Favoritos">
                     <i class="fa-regular fa-heart"></i>
                 </a>
-                <div class="card-content-no-image">
-                  <h3>${product.nome_produto}</h3>
-                  <p>Marca: ${product.marca}</p>
-                </div>
+                <img src="${imgUrl}" alt="${product.nome_produto}" class="product-image">
+                <h3>${product.nome_produto}</h3>
+                <p class="product-brand">${product.marca}</p>
                 <div class="card-footer">
                     <a href="detalhes.html?id=${product.id_suplemento}" class="buy-button">Ver Detalhes</a>
                 </div>
@@ -161,5 +194,4 @@ async function carregarDestaques() {
     }
 }
 
-// Executa tudo quando a página carrega
 document.addEventListener('DOMContentLoaded', setupPage);

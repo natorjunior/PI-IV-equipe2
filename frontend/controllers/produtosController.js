@@ -9,72 +9,69 @@ exports.buscarProduto = (req, res) => {
   //  tratando caso de nenhum parâmetro informado
   const query = req.query.q ? `%${req.query.q}%` : null;
   //  comando sql para realizar a consulta na base com base
+  const category = req.query.category; // Novo parâmetro recebido
   let sql;
   //  lista de parâmetros de busca
   let params = [];
 
   let selectColumns = "s.id_suplemento, s.nome, s.marca, s.tipo_suplemento, s.status_aprovacao";
   //  reatribuindo o comando de acordo com o tipo de usuário
-  if (!req.session.usuario || req.session.usuario.tipo === "COMUM") {
-    
-   
-    //  caso a busca contenha parâmetros
-    if (query) {
-    sql = `
-        SELECT ${selectColumns}, ANY_VALUE(m.caminho_midia) AS imagem_url
-        FROM suplementos s
-        LEFT JOIN midias m ON s.id_suplemento = m.id_suplemento AND m.tipo_midia = 'IMAGEM'
-        WHERE s.nome LIKE ? OR s.marca LIKE ? OR s.tipo_suplemento LIKE ?
-        GROUP BY s.id_suplemento
-    `;
-    params = [query, query, query];
-  } else {
-    sql = `
-        SELECT ${selectColumns}, ANY_VALUE(m.caminho_midia) AS imagem_url
-        FROM suplementos s
-        LEFT JOIN midias m ON s.id_suplemento = m.id_suplemento AND m.tipo_midia = 'IMAGEM'
-        GROUP BY s.id_suplemento
-    `;
-  }
-    //  comando para usuário administrador
-  } else if (req.session.usuario.tipo === "ADMINISTRADOR") {
-    if (query) {
-      sql = `
-        SELECT *
-        FROM suplementos
-        WHERE nome LIKE ? OR marca LIKE ? OR tipo_suplemento LIKE ? OR status_aprovacao LIKE ?`;
-      params = [query, query, query, query];
-    } else {
-      sql = "SELECT * FROM suplementos";
-    }
-    //  tratando erro de tipo de usuário
-  } else {
-    return res.status(403).json({ message: "Tipo de usuário inválido." });
+ if (req.session.usuario && req.session.usuario.tipo === "ADMINISTRADOR") {
+    selectColumns = "s.*";
   }
 
-  //  realizando a consulta no banco
+  // Monta a query base com LEFT JOIN para imagem
+  sql = `
+      SELECT ${selectColumns}, ANY_VALUE(m.caminho_midia) AS imagem_url
+      FROM suplementos s
+      LEFT JOIN midias m ON s.id_suplemento = m.id_suplemento AND m.tipo_midia = 'IMAGEM'
+      WHERE 1=1
+  `;
+
+  // Filtro por Texto (Nome ou Marca)
+  if (query) {
+      sql += ` AND (s.nome LIKE ? OR s.marca LIKE ?)`;
+      params.push(query, query);
+  }
+
+  // Filtro por Categoria
+  if (category && category !== 'all') {
+      sql += ` AND s.tipo_suplemento = ?`;
+      params.push(category);
+  }
+
+  // Agrupamento Final
+  sql += ` GROUP BY s.id_suplemento`;
+
   db.query(sql, params, (err, results) => {
-    //  tratando o caso erro na consulta
     if (err) {
-      //  exibindo mensagem de erro no terminal
-      console.error("Erro no banco de dados. Erro: ", err);
-      //  enviando uma mensagem de erro do servidor para o frontend
-      return res
-        .status(500)
-        .json({ message: "Erro no servidor. Busca por suplemento." });
-      //  caso de consulta sem resultados recuperados
-    } else if (results.length === 0) {
-      return res.json([]);
-      // return res.status(404).json({ message: "Nenhum suplemento encontrado." });
-      //  caso de consulta com resultados recuperados
-    } else {
-      //  enviando dados recuperados da base
-      return res.json(results);
+      console.error("Erro no banco de dados:", err);
+      return res.status(500).json({ message: "Erro na busca." });
     }
+    res.json(results);
   });
 };
 
-// BUSCAR DETALHES POR ID (COMPLETO)
+exports.listarDestaques = (req, res) => {
+  const sql = `
+    SELECT s.id_suplemento, s.nome, s.marca, s.status_aprovacao,
+           ANY_VALUE(m.caminho_midia) AS imagem_url
+    FROM suplementos s
+    LEFT JOIN midias m ON s.id_suplemento = m.id_suplemento AND m.tipo_midia = 'IMAGEM'
+    GROUP BY s.id_suplemento
+    ORDER BY RAND()
+    LIMIT 3
+  `;
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error("Erro ao buscar destaques:", err);
+      return res.status(500).json({ message: "Erro ao buscar destaques." });
+    }
+    res.json(results);
+  });
+};
+
 exports.buscarPorId = (req, res) => {
     const { id_suplemento } = req.params;
 
@@ -195,58 +192,4 @@ exports.removerFavorito = (req, res) => {
     // Se a deleção funcionou, envia uma resposta de sucesso.
     res.json({ message: "Favorito removido com sucesso!" });
   });
-};
-
-exports.listarDestaques = (req, res) => {
-  const sql = `
-    SELECT s.id_suplemento, s.nome, s.marca, s.status_aprovacao,
-           ANY_VALUE(m.caminho_midia) AS imagem_url
-    FROM suplementos s
-    LEFT JOIN midias m ON s.id_suplemento = m.id_suplemento AND m.tipo_midia = 'IMAGEM'
-    GROUP BY s.id_suplemento
-    ORDER BY RAND()
-    LIMIT 3
-  `;
-
-  db.query(sql, (err, results) => {
-    if (err) {
-      console.error("Erro ao buscar destaques:", err);
-      return res.status(500).json({ message: "Erro ao buscar destaques." });
-    }
-    res.json(results);
-  });
-};
-
-// --- NOVA FUNÇÃO: Buscar Detalhes por ID ---
-exports.buscarPorId = (req, res) => {
-    const { id_suplemento } = req.params;
-
-    // Note que ajustei para usar 's.nome' e 's.tipo_suplemento' conforme sua nova tabela
-    const sql = `
-        SELECT 
-            s.id_suplemento, 
-            s.nome, 
-            s.marca, 
-            s.tipo_suplemento, 
-            s.status_aprovacao,
-            s.detalhes_laudo,
-            s.orgao_laudo,
-            s.data_laudo,
-            ANY_VALUE(m.caminho_midia) AS imagem_url
-        FROM suplementos s
-        LEFT JOIN midias m ON s.id_suplemento = m.id_suplemento AND m.tipo_midia = 'IMAGEM'
-        WHERE s.id_suplemento = ?
-        GROUP BY s.id_suplemento
-    `;
-
-    db.query(sql, [id_suplemento], (err, results) => {
-        if (err) {
-            console.error("Erro ao buscar detalhes:", err);
-            return res.status(500).json({ message: "Erro no servidor." });
-        }
-        if (results.length === 0) {
-            return res.status(404).json({ message: "Suplemento não encontrado." });
-        }
-        res.json(results[0]);
-    });
 };
