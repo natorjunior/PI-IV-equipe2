@@ -82,8 +82,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const produto = {
       nome: document.getElementById("prod-nome").value,
       marca: document.getElementById("prod-marca").value,
-      tipo_suplemento: document.getElementById("prod-tipo").value,
-      status_aprovacao: document.getElementById("prod-status").value,
+      // CORREÇÃO AQUI:
+      tipo_suplemento: document.getElementById('prod-tipo').value, 
+      // CORREÇÃO AQUI:
+      status_aprovacao: document.getElementById('prod-status').value,
       imagem_url: document.getElementById("prod-img").value,
       orgao_laudo: document.getElementById("prod-orgao").value,
       data_laudo: document.getElementById("prod-data").value,
