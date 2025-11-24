@@ -40,19 +40,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         card.setAttribute("data-name", product.nome);
         // Adicione data-image se tiver a coluna no banco
         // card.setAttribute('data-image', product.imagem_url);
+        const imgUrl = product.imagem_url || 'resources/logo.png';
 
         card.innerHTML = `
-                    <a href="#" class="favorite-icon" title="Adicionar aos Favoritos"><i class="fa-regular fa-heart"></i></a>
-                    <h3>${product.nome}</h3>
-                    <p>Marca: ${product.marca}</p>
-                    <p class="status-${product.status_aprovacao.toLowerCase()}">Status: ${
-          product.status_aprovacao
-        }</p>
-                    <div class="card-footer">
-                        <a href="detalhes.html?id=${product.id_suplemento}" class="buy-button">Ver Detalhes</a>
-                    </div>
-                `;
-        grid.appendChild(card);
+        <a href="#" class="favorite-icon" title="Adicionar aos Favoritos">
+            <i class="fa-regular fa-heart"></i>
+        </a>
+        <img src="${imgUrl}" alt="${product.nome}" class="product-image">
+        
+        <h3>${product.nome}</h3>
+        <p class="product-brand">${product.marca}</p>
+        <p class="status-${product.status_aprovacao.toLowerCase()}">Status: ${product.status_aprovacao}</p>
+        <div class="card-footer">
+            <a href="detalhes.html?id=${product.id_suplemento}" class="buy-button">Ver Detalhes</a>
+        </div>
+    `;
+    grid.appendChild(card);
       });
 
       // Favoritar/desfavoritar com delegação de eventos (código mínimo)
