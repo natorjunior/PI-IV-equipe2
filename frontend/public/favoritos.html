@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/main.js" defer></script>
     <script src="js/favoritos.js" defer></script>
-</head>
+    <script src="js/chat.js" defer></script> 
+  </head>
 <body>
     <header>
         <div class="header-left">
@@ -50,7 +51,25 @@
       <div id="favorites-grid" class="featured-grid"></div>
       <p id="empty-favorites-message" class="hidden">Você ainda não adicionou nenhum suplemento aos favoritos.</p>
     </main>
-    
+    <div id="chatbot-container">
+        <button id="chatbot-toggle">
+            <i class="fa-solid fa-robot"></i>
+        </button>
+
+        <div id="chatbot-window" class="hidden">
+            <div class="chat-header">
+                <span>Assistente IA</span>
+                <button id="chatbot-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="chat-messages">
+                <div class="message bot-message">Olá! Sou a IA da InfoSuplementos. Como posso ajudar?</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Digite sua dúvida...">
+                <button id="chat-send"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
     <footer>
       <p>&copy; 2025 InfoSuplementos - Todos os direitos reservados.</p>
     </footer>
