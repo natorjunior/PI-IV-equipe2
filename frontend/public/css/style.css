@@ -814,161 +814,155 @@ select {
     color: #555;
 }
 
-/* --- 13. ESTILOS DA PÁGINA DE DETALHES (Ver Detalhes) --- */
+/* --- 13. ESTILOS DA PÁGINA DE DETALHES (CORRIGIDO) --- */
 
-/* Container principal que envolve tudo */
-.details-container {
-    max-width: 1100px; /* Largura máxima para não esticar demais em telas gigantes */
-    margin: 30px auto; /* Centraliza na tela e dá margem superior/inferior */
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.1); /* Sombra suave para destacar */
-    display: flex; /* Ativa o layout flexível (lado a lado) */
-    gap: 40px; /* Espaço entre a imagem e o texto */
-    align-items: flex-start; /* Alinha os itens ao topo */
+/* O Cartão Principal */
+#product-detail-container {
+    background: #fff;
+    max-width: 1000px; /* Limita a largura para não esticar em telas grandes */
+    width: 90%; /* Ocupa 90% da tela em dispositivos menores */
+    margin: 40px auto; /* 'auto' nas laterais centraliza o cartão na tela */
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    overflow: hidden;
+    padding: 40px;
 }
 
-/* --- Área da Imagem --- */
-.details-image-box {
-    flex: 1; /* Ocupa 1 parte do espaço disponível */
-    max-width: 500px; /* Garante que a área da imagem não fique excessivamente larga */
+/* Área Superior: Imagem + Títulos */
+.detail-header {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f9f9f9; /* Fundo cinza claro para imagens com fundo transparente */
+    align-items: flex-start; /* Alinha ao topo */
+    gap: 40px; /* Espaço entre a imagem e o texto */
+    border-bottom: 1px solid #eee;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+}
+
+/* CORREÇÃO DA IMAGEM GIGANTE */
+.detail-header img {
+    width: 300px; /* Largura fixa */
+    height: 300px; /* Altura fixa */
+    object-fit: contain; /* A imagem se ajusta dentro do quadrado sem distorcer */
+    border: 1px solid #eee;
     border-radius: 12px;
-    padding: 20px;
-    position: relative; /* Para posicionar o ícone de favorito se quiser no futuro */
+    padding: 15px;
+    background-color: #fff;
+    flex-shrink: 0; /* Garante que a imagem não encolha */
+    align-self: center;
 }
 
-.details-image-box img {
-    width: 100%; /* Tenta ocupar a largura do box */
-    height: auto; /* Mantém a proporção */
-    max-height: 500px; /* TETO MÁXIMO de altura. A imagem nunca passará disso */
-    object-fit: contain; /* Garante que a imagem inteira apareça dentro da área, sem cortar */
-}
-
-/* --- Área de Informações (Texto) --- */
-.details-info-box {
-    flex: 1.2; /* Ocupa um pouco mais de espaço que a imagem (proporção 1.2 vs 1) */
+/* Área de Texto ao lado da imagem */
+.detail-title-box {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Espaçamento entre os elementos de texto */
+    justify-content: center;
 }
 
-/* Título do Produto */
-.details-title {
-    font-size: 2rem;
+.detail-title-box h2 {
+    margin: 0 0 10px 0;
     color: var(--primary-color);
-    margin-bottom: 5px;
+    font-size: 2.2rem;
     line-height: 1.2;
 }
 
-/* Marca */
-.details-brand {
-    font-size: 1.1rem;
-    color: #666;
+.detail-title-box h3 {
+    margin: 0 0 20px 0;
+    color: #7f8c8d;
     font-weight: 500;
+    font-size: 1.4rem;
 }
 
-/* Status (Aprovado/Reprovado) - Reutiliza cores existentes, ajusta tamanho */
-.details-status {
+/* Badge de Status */
+.status-badge {
     display: inline-block;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 700;
     font-size: 0.9rem;
-    align-self: flex-start; /* Não estica a tag de status */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    align-self: flex-start; /* Impede o badge de esticar a largura toda */
 }
 
-/* Ações (Botão de Favoritar) */
-.details-actions {
-    margin: 10px 0;
-}
-/* Estilo do botão de favoritar na página de detalhes */
-.btn-favorite-details {
-    background: none;
-    border: 2px solid #ddd;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    color: #aaa;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+/* Relatório Técnico */
+.detail-report {
+    padding: 10px 0;
 }
 
-.btn-favorite-details:hover {
-    border-color: var(--logout-color);
-    color: var(--logout-color);
+.detail-report h3 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.5rem;
+    border-left: 5px solid var(--primary-color);
+    padding-left: 15px;
 }
 
-.btn-favorite-details span {
-    font-size: 1rem;
-    color: #666;
-}
-
-/* Seção Técnica (Laudo) */
-.technical-details {
-    margin-top: 20px;
-    background-color: #f4f7f6;
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+    background: #f8f9fa;
     padding: 25px;
-    border-radius: 10px;
-    border-left: 5px solid var(--primary-color); /* Linha lateral colorida para destaque */
-}
-
-.technical-details h3 {
-    color: #333;
-    margin-bottom: 15px;
-    font-size: 1.3rem;
-}
-
-.technical-details p {
-    margin-bottom: 10px;
-    line-height: 1.5;
-    color: #555;
-}
-.technical-details strong {
-    color: #333;
-}
-
-/* Área de Comentários (Para o futuro) */
-#comments-section {
-    max-width: 1100px;
-    margin: 40px auto;
-    background: white;
-    padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    border: 1px solid #eee;
 }
 
-/* --- RESPONSIVIDADE (Para Celulares e Tablets) --- */
-/* Quando a tela for menor que 768px (tablets e celulares) */
+.report-item strong {
+    display: block;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.report-item span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.report-desc {
+    line-height: 1.8;
+    color: #555;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+}
+
+/* --- RESPONSIVIDADE (MUITO IMPORTANTE) --- */
 @media (max-width: 768px) {
-    .details-container {
-        flex-direction: column; /* Muda o layout de lado-a-lado para empilhado */
+    #product-detail-container {
         padding: 20px;
-        margin: 15px;
+        margin: 20px auto;
+        width: 95%;
     }
 
-    .details-image-box, .details-info-box {
-        width: 100%; /* Ambos ocupam largura total */
-        max-width: none;
+    /* No celular, coloca a imagem em cima e o texto embaixo */
+    .detail-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
     }
 
-    .details-image-box {
-        margin-bottom: 25px;
-        max-height: 400px; /* Altura máxima um pouco menor no mobile */
+    .detail-header img {
+        width: 200px; /* Imagem menor no celular */
+        height: 200px;
     }
 
-    .details-image-box img {
-        max-height: 350px;
+    .detail-title-box {
+        align-items: center; /* Centraliza o texto no celular */
     }
 
-    .details-title {
-        font-size: 1.6rem; /* Título um pouco menor */
+    .detail-title-box h2 {
+        font-size: 1.8rem;
+    }
+
+    .status-badge {
+        align-self: center;
     }
 }
