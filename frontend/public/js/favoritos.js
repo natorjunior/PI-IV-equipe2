@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const emptyMessage = document.getElementById("empty-favorites-message");
 
   try {
-    const response = await fetch("/api/infosuplementos/", {
+    const response = await fetch("/api/infosuplementos/favoritos", {
       credentials: "include",
     });
     const favorites = await response.json();
