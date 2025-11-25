@@ -2,7 +2,7 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 // Configuração da API Key
 // (Lembre-se: Em produção, use process.env.GEMINI_API_KEY)
-const genAI = new GoogleGenerativeAI("AIzaSyBqGKWXSHmQECL4ENWmfVIp1jJ3PLarRgs");
+const genAI = new GoogleGenerativeAI("key api aqui");
 
 // Contexto: Ensinando a IA sobre o seu site
 const CONTEXTO_SUPPHINTS = `
@@ -23,7 +23,7 @@ REGRAS:
 
 // Configuração do Modelo
 const model = genAI.getGenerativeModel({ 
-    model: "gemini-1.5-flash", // Modelo rápido e eficiente (e gratuito no tier free)
+    model: "gemini-2.5-flash", // Modelo rápido e eficiente (e gratuito no tier free)
     systemInstruction: CONTEXTO_SUPPHINTS // Instrução de sistema (quem a IA é)
 });
 
