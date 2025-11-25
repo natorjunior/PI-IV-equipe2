@@ -1,3 +1,10 @@
+-- Defindindo codificação de caracteres
+
+SET NAMES utf8mb4;
+SET character_set_client = utf8mb4;
+SET character_set_connection = utf8mb4;
+SET character_set_results = utf8mb4;
+
 #Creatinas Aprovadas 0-5%
 
 INSERT INTO suplementos (nome, marca, tipo_suplemento, status_aprovacao, detalhes_laudo, orgao_laudo, data_laudo, id_usuario_cadastro, status_suplemento) VALUES

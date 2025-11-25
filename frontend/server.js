@@ -22,6 +22,11 @@ const PORT = 3000;
 
 //  middleware para ler dados tipo json
 app.use(express.json());
+// definindo encoding de caracteres
+app.use((req, res, next) => {
+  res.charset = "utf-8";
+  next();
+});
 //  middleware para ler formulários (tag <form>)
 app.use(express.urlencoded({ extended: true }));
 // servindo arquivos estáticos usando o path que trata separadores de diretórios (/ ou \) de acordo com o sistema operacional
@@ -61,5 +66,5 @@ app.use("/api/admin", adminRoutes);
 
 //  iniciando servidor
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em  http://localhost:${PORT}`);
+  console.log("Servidor rodando em  http://localhost:1531");
 });

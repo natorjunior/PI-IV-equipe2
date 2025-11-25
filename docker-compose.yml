@@ -34,10 +34,10 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-padmin"]
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -padmin"]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
       start_period: 30s
 
   phpmyadmin:
@@ -54,8 +54,8 @@ services:
     depends_on:
       - db
     networks:
-      - app-network   
-      
+      - app-network
+
 volumes:
   db_data:
 
