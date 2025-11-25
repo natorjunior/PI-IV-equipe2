@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     // 2. Chamar a API do Back-end
-    const response = await fetch(`/api/infosuplementos/${id}`);
+    const response = await fetch(`/api/infosuplementos/detalhes/${id}`);
 
     if (!response.ok) throw new Error("Erro ao buscar produto");
 
