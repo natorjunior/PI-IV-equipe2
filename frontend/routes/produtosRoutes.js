@@ -12,7 +12,7 @@ router.get("/search", produtosController.buscarProduto);
 router.get("/destaques", produtosController.listarDestaques);
 
 // Rota PÚBLICA para exibir os detalhes dos produtos.
-router.get("/:id_suplemento", produtosController.buscarPorId);
+router.get("/detalhes/:id_suplemento", produtosController.buscarPorId);
 
 // --- ROTAS PROTEGIDAS (PRECISAM DE LOGIN) ---
 
@@ -24,7 +24,6 @@ router.post("/favoritos", produtosController.adicionarFavorito);
 
 // Rota para REMOVER um favorito. O :id_suplemento é um parâmetro na URL
 router.delete("/favoritos/:id_suplemento", produtosController.removerFavorito);
-
 
 //  exportando módulo
 module.exports = router;
