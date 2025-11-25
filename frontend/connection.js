@@ -9,6 +9,8 @@ const pool = mysql.createPool({
   user: process.env.DB_USER || "root",
   password: process.env.DB_PASSWORD || "admin",
   database: process.env.DB_NAME || "info_suplementos",
+  // determinando o tipo de código de caracteres na conexão node-mysql
+  charset: "utf8mb4",
   // novas requisições esperam uma conexão ser liberada
   waitForConnections: true,
   // número máximo de conexões
