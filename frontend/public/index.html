@@ -10,6 +10,7 @@
     />
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/main.js" defer></script>
+    <script src="js/chat.js" defer></script> 
   </head>
   <body>
     <header>
@@ -50,77 +51,55 @@
             <a href="login.html" class="botao-login">Login / Cadastro</a>
         </div>
         <div id="user-menu" class="hidden">
-            <a href="#" id="logout-button" class="header-icon" title="Sair">
-                <i class="fa-solid fa-right-from-bracket"></i>
-            </a>
-        </div>
+    <a href="perfil.html" class="header-icon" title="Minha Conta">
+        <i class="fa-solid fa-user"></i>
+    </a>
+    <a href="#" id="logout-button" class="header-icon" title="Sair">
+        <i class="fa-solid fa-right-from-bracket"></i>
+    </a>
+</div>
     </div>
 </header>
 
-    <main class="main-content">
-      <h2>Suplementos em Destaque</h2>
-      <div class="featured-grid">
-
-        <div class="supplement-card" data-id="1" data-name="Creatina Monohidratada">
-          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos">
-            <i class="fa-regular fa-heart"></i>
-          </a>
-          <img
-            src="https://darklabsuplementos.com.br/cdn/shop/files/Creatina_Monoidratada_Pura_Potel_300g_2500x2500_01.png?v=1753279944&width=823"
-            alt="Creatina"
-          />
-          <h3>Creatina Monohidratada</h3>
-          <div class="card-footer">
-            <a href="#" class="buy-button">Ver Detalhes</a>
-          </div>
-        </div>
-
-        <div class="supplement-card" data-id="2" data-name="Whey Protein Concentrado">
-          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos">
-            <i class="fa-regular fa-heart"></i>
-          </a>
-          <img
-            src="https://m.media-amazon.com/images/I/71shMPMgVxL.jpg"
-            alt="Whey Protein Concentrado"
-          />
-          <h3>Whey Protein Concentrado</h3>
-          <div class="card-footer">
-            <a href="#" class="buy-button">Ver Detalhes</a>
-          </div>
-        </div>
-
-        <div class="supplement-card" data-id="3" data-name="Whey Protein Isolado">
-          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos">
-            <i class="fa-regular fa-heart"></i>
-          </a>
-          <img
-            src="https://m.media-amazon.com/images/I/71uZvfC-CTL._UF1000,1000_QL80_.jpg"
-            alt="Whey Protein Isolado"
-          />
-          <h3>Whey Protein Isolado</h3>
-          <div class="card-footer">
-            <a href="#" class="buy-button">Ver Detalhes</a>
-          </div>
-        </div>
-
-        <div class="supplement-card" data-id="4" data-name="Creatina Creapure">
-          <a href="#" class="favorite-icon" title="Adicionar aos Favoritos">
-            <i class="fa-regular fa-heart"></i>
-          </a>
-          <img
-            src="https://http2.mlstatic.com/D_NQ_NP_2X_744621-MLA86664171278_062025-F.webp"
-            alt="Creatina Creapure"
-          />
-          <h3>Creatina Creapure</h3>
-          <div class="card-footer">
-            <a href="#" class="buy-button">Ver Detalhes</a>
-          </div>
-        </div>
+   <main class="main-content">
+  <h2>Suplementos em Destaque</h2>
+  <div class="featured-grid">
       </div>
-    </main>
+</main>
 
     <footer>
       <p>&copy; 2025 InfoSuplementos - Todos os direitos reservados.</p>
     </footer>
+  
+    <div id="privacy-popup" class="popup-overlay hidden">
+      <div class="popup-container">
+        <h3>Nossa Política de Privacidade</h3>
+        <p>
+          Nosso site utiliza cookies para garantir a melhor experiência de navegação e para fins de análise. Ao continuar, você concorda com o uso de cookies e com nossa 
+          <a href="#" target="_blank">Política de Privacidade</a>.
+        </p>
+        <button id="accept-privacy-btn">Eu entendo e aceito</button>
+      </div>
+    </div>
+    <div id="chatbot-container">
+        <button id="chatbot-toggle">
+            <i class="fa-solid fa-robot"></i>
+        </button>
+
+        <div id="chatbot-window" class="hidden">
+            <div class="chat-header">
+                <span>Assistente IA</span>
+                <button id="chatbot-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="chat-messages">
+                <div class="message bot-message">Olá! Sou a IA da InfoSuplementos. Como posso ajudar?</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Digite sua dúvida...">
+                <button id="chat-send"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+    
   </body>
 </html>

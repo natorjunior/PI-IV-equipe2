@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - InfoSuplementos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+    <script src="js/perfil.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="resources/logo.png" alt="Logo" class="header-logo">
+            <h1>InfoSuplementos</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="user-actions">
+            <a href="favoritos.html" class="header-icon" title="Favoritos"><i class="fa-solid fa-heart"></i></a>
+            <div id="guest-menu"><a href="login.html" class="botao-login">Login</a></div>
+            <div id="user-menu" class="hidden">
+    <a href="perfil.html" class="header-icon" title="Minha Conta">
+        <i class="fa-solid fa-user"></i>
+    </a>
+    <a href="#" id="logout-button" class="header-icon" title="Sair">
+        <i class="fa-solid fa-right-from-bracket"></i>
+    </a>
+</div>
+        </div>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <h1>Minha Conta</h1>
+            
+            <form id="form-perfil">
+                <label style="text-align: left; display: block; margin-bottom: 5px;">Nome:</label>
+                <div class="input-group">
+                    <input type="text" id="nome" name="nome" required>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <label style="text-align: left; display: block; margin-bottom: 5px;">Email (não alterável):</label>
+                <div class="input-group">
+                    <input type="email" id="email" name="email" disabled style="background-color: #e9ecef; cursor: not-allowed;">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+
+                <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">Preencha abaixo apenas se quiser alterar sua senha.</p>
+
+                <div class="input-group">
+                    <input type="password" id="novaSenha" name="novaSenha" placeholder="Nova Senha (Opcional)">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="confirmarNovaSenha" placeholder="Confirmar Nova Senha">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <button type="submit">Salvar Alterações</button>
+                
+                <div class="links">
+                    <p>Membro desde: <span id="data-cadastro">-</span></p>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 InfoSuplementos.</p>
+    </footer>
+</body>
+</html>

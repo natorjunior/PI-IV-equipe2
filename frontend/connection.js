@@ -1,37 +1,39 @@
 //  importando módulo
 const mysql = require("mysql2");
 
-//  função para dar mais robustez a conexão
-function createConnectionWithRetry() {
-  const config = {
-    //  nome do serviço referente ao banco de dados no docker-compose
-    host: process.env.DB_HOST || "db",
-    user: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD || "admin",
-    database: process.env.DB_NAME || "info_suplementos",
-  };
+//  criando o pool de cenexões
 
-  //  criando a conexão com o banco de dados
-  const db = mysql.createConnection(config);
+const pool = mysql.createPool({
+  //  nome do serviço referente ao banco de dados no docker-compose
+  host: process.env.DB_HOST || "db",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "admin",
+  database: process.env.DB_NAME || "info_suplementos",
+  // determinando o tipo de código de caracteres na conexão node-mysql
+  charset: "utf8mb4",
+  // novas requisições esperam uma conexão ser liberada
+  waitForConnections: true,
+  // número máximo de conexões
+  connectionLimit: 10,
+  // número máximo de conexões na fila
+  queueLimit: 0,
+});
 
-  //  tratando o erro ao estabelecer a cenexão
-  db.connect((err) => {
-    if (err) {
-      console.error(
-        "Erro ao conectar ao MySQL, tentando novamente em 5s...:",
-        err
-      );
-      setTimeout(() => {
-        //  fechandoa a conexão atual e tantando novamente
-        try {
-          db.destroy();
-        } catch (e) {}
-        createConnectionWithRetry();
-      }, 5000);
-    } else {
-      console.log("Conectado ao MySQL com sucesso!");
-    }
-  });
-  return db;
-}
-module.exports = createConnectionWithRetry();
+// testando o pool
+pool.getConnection((err, connection) => {
+  // tratando erro
+  if (err) {
+    console.error("Erro ao conectar-se ao MySQL. Erro: ", err);
+    return;
+  }
+
+  // por que não aparece no terminal ?
+  // feedback no terminal
+  console.log("Conexão (pool) com o MySQL bem sucedida!");
+
+  // devolve a conexão ao pool
+  connection.release();
+});
+
+// exportando módulo
+module.exports = pool;

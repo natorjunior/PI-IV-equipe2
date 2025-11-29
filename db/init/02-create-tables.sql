@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
     senha_hash VARCHAR(255) NOT NULL,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+;
 
 CREATE TABLE IF NOT EXISTS suplementos (
     id_suplemento INT AUTO_INCREMENT PRIMARY KEY,
@@ -24,7 +25,8 @@ CREATE TABLE IF NOT EXISTS suplementos (
 	data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario_cadastro) REFERENCES usuarios(id_usuario)
     
-);
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+;
 
 
 CREATE TABLE IF NOT EXISTS favoritos (
@@ -35,7 +37,8 @@ CREATE TABLE IF NOT EXISTS favoritos (
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
     FOREIGN KEY (id_suplemento) REFERENCES suplementos(id_suplemento)
         
-);
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+;
 
 CREATE TABLE IF NOT EXISTS midias (
     id_midia INT AUTO_INCREMENT PRIMARY KEY,
@@ -46,4 +49,5 @@ CREATE TABLE IF NOT EXISTS midias (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_suplemento) REFERENCES suplementos(id_suplemento)
-);
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+;

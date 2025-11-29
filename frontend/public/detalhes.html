@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Resultados da Busca - InfoSuplementos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes - InfoSuplementos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css">
     <script src="js/main.js" defer></script>
-    <script src="js/resultados.js" defer></script>
-    <script src="js/chat.js" defer></script>
+    <script src="js/detalhes.js" defer></script>
 </head>
 <body>
     <header>
         <div class="header-left">
-            <img src="resources/logo.png" alt="Logo InfoSuplementos" class="header-logo">
+            <img src="resources/logo.png" alt="Logo" class="header-logo">
             <h1>InfoSuplementos</h1>
             <nav>
                 <ul>
@@ -54,32 +53,46 @@
     </header>
 
     <main class="main-content">
-      <h2 id="search-title">Carregando resultados...</h2>
-      <div id="results-grid" class="featured-grid"></div>
-      <p id="no-results-message" class="hidden">Nenhum suplemento encontrado para sua busca.</p>
-    </main>
-    <div id="chatbot-container">
-        <button id="chatbot-toggle">
-            <i class="fa-solid fa-robot"></i>
-        </button>
+        <div id="loading-msg">Carregando informações...</div>
+        
+        <div id="product-detail-container" class="hidden">
+            <div class="detail-header">
+                <img id="detail-img" src="" alt="Imagem do Produto">
+                
+                <div class="detail-title-box">
+                    <h2 id="detail-name">Nome do Produto</h2>
+                    <h3 id="detail-brand">Marca</h3>
+                    <span id="detail-status" class="status-badge">STATUS</span>
+                </div>
+            </div>
 
-        <div id="chatbot-window" class="hidden">
-            <div class="chat-header">
-                <span>Assistente IA</span>
-                <button id="chatbot-close"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div id="chat-messages">
-                <div class="message bot-message">Olá! Sou a IA da InfoSuplementos. Como posso ajudar?</div>
-            </div>
-            <div class="chat-input-area">
-                <input type="text" id="chat-input" placeholder="Digite sua dúvida...">
-                <button id="chat-send"><i class="fa-solid fa-paper-plane"></i></button>
+            <div class="detail-report">
+                <h3>Relatório de Análise (Laudo)</h3>
+                <div class="report-grid">
+                    <div class="report-item">
+                        <strong>Tipo de Suplemento:</strong> 
+                        <span id="detail-type">-</span>
+                    </div>
+                    <div class="report-item">
+                        <strong>Órgão Avaliador:</strong> 
+                        <span id="detail-org">-</span>
+                    </div>
+                    <div class="report-item">
+                        <strong>Data da Análise:</strong> 
+                        <span id="detail-date">-</span>
+                    </div>
+                </div>
+                
+                <div class="report-desc">
+                    <strong>Detalhes Técnicos e Observações:</strong>
+                    <p id="detail-text">Carregando detalhes...</p>
+                </div>
             </div>
         </div>
-    </div>
-    
+    </main>
+
     <footer>
-      <p>&copy; 2025 InfoSuplementos - Todos os direitos reservados.</p>
+        <p>&copy; 2025 InfoSuplementos - Todos os direitos reservados.</p>
     </footer>
 </body>
 </html>
