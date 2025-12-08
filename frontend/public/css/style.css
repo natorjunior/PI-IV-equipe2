@@ -604,33 +604,69 @@ main {
   flex-direction: column;
   justify-content: center;
 }
-/* --- 11. ESTILOS DO CHATBOT --- */
+/* -11 CHATBOT (ATUALIZADO) --- */
 
 #chatbot-container {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 2000;
-    font-family: 'Poppins', sans-serif;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Alinha tudo à direita */
+    gap: 10px;
 }
 
-/* Botão Redondo Flutuante */
+/* O novo balão de texto "Precisa de ajuda?" */
+#chatbot-call-to-action {
+    background-color: white;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 20px 20px 0 20px; /* Borda arredondada com uma ponta */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s;
+    border: 1px solid #eee;
+    
+    /* Pequena animação para chamar atenção */
+    animation: floatLabel 3s infinite ease-in-out;
+}
+
+@keyframes floatLabel {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* O botão redondo */
 #chatbot-toggle {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
     background-color: var(--primary-color);
     color: white;
     border: none;
-    font-size: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 1.5rem;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #chatbot-toggle:hover {
     transform: scale(1.1);
-    background-color: var(--primary-hover);
+    background-color: #2980b9;
+}
+
+/* Quando o chat estiver aberto, escondemos o balão "Precisa de ajuda" */
+#chatbot-container.chat-open #chatbot-call-to-action {
+    opacity: 0;
+    pointer-events: none;
+    display: none;
 }
 
 /* Janela do Chat */

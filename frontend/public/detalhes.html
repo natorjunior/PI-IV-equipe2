@@ -96,7 +96,29 @@
                     <p id="detail-text">Carregando detalhes...</p>
                 </div>
             </div>
+            <div id="chatbot-container">
+        
+        <div id="chatbot-call-to-action">
+            Precisa de ajuda? 🤖
         </div>
+
+        <button id="chatbot-toggle">
+            <i class="fa-solid fa-comment-dots"></i> </button>
+
+        <div id="chatbot-window" class="hidden">
+            <div class="chat-header">
+                <span>Assistente IA</span>
+                <button id="chatbot-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="chat-messages">
+                <div class="message bot-message">Olá! Sou a IA da InfoSuplementos. Posso analisar a pureza de suplementos para você. Qual é a sua dúvida?</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Ex: A creatina X é pura?">
+                <button id="chat-send"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
     </main>
 
     <footer>
