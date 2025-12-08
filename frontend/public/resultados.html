@@ -68,9 +68,13 @@
       <p id="no-results-message" class="hidden">Nenhum suplemento encontrado para sua busca.</p>
     </main>
     <div id="chatbot-container">
+        
+        <div id="chatbot-call-to-action">
+            Precisa de ajuda? 🤖
+        </div>
+
         <button id="chatbot-toggle">
-            <i class="fa-solid fa-robot"></i>
-        </button>
+            <i class="fa-solid fa-comment-dots"></i> </button>
 
         <div id="chatbot-window" class="hidden">
             <div class="chat-header">
@@ -78,10 +82,10 @@
                 <button id="chatbot-close"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div id="chat-messages">
-                <div class="message bot-message">Olá! Sou a IA da InfoSuplementos. Como posso ajudar?</div>
+                <div class="message bot-message">Olá! Sou a IA da InfoSuplementos. Posso analisar a pureza de suplementos para você. Qual é a sua dúvida?</div>
             </div>
             <div class="chat-input-area">
-                <input type="text" id="chat-input" placeholder="Digite sua dúvida...">
+                <input type="text" id="chat-input" placeholder="Ex: A creatina X é pura?">
                 <button id="chat-send"><i class="fa-solid fa-paper-plane"></i></button>
             </div>
         </div>
