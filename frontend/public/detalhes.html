@@ -97,6 +97,50 @@
                 </div>
             </div>
         </div>
+        <div id="comments-section" class="comments-section">
+    <h3>Avaliações da Comunidade</h3>
+    
+    <div id="review-form-container" class="review-form hidden">
+        <h4>Deixe sua opinião</h4>
+        <form id="form-avaliacao">
+            
+            <div class="rating-row">
+                <div class="rating-group">
+                    <span class="rating-label"><i class="fa-solid fa-mug-hot"></i> Sabor:</span>
+                    <div class="stars-input">
+                        <input type="radio" id="sabor5" name="nota_sabor" value="5"><label for="sabor5">★</label>
+                        <input type="radio" id="sabor4" name="nota_sabor" value="4"><label for="sabor4">★</label>
+                        <input type="radio" id="sabor3" name="nota_sabor" value="3"><label for="sabor3">★</label>
+                        <input type="radio" id="sabor2" name="nota_sabor" value="2"><label for="sabor2">★</label>
+                        <input type="radio" id="sabor1" name="nota_sabor" value="1"><label for="sabor1">★</label>
+                    </div>
+                </div>
+
+                <div class="rating-group">
+                    <span class="rating-label"><i class="fa-solid fa-hand-holding-dollar"></i> Custo-Benefício:</span>
+                    <div class="stars-input">
+                        <input type="radio" id="custo5" name="nota_custo" value="5"><label for="custo5">★</label>
+                        <input type="radio" id="custo4" name="nota_custo" value="4"><label for="custo4">★</label>
+                        <input type="radio" id="custo3" name="nota_custo" value="3"><label for="custo3">★</label>
+                        <input type="radio" id="custo2" name="nota_custo" value="2"><label for="custo2">★</label>
+                        <input type="radio" id="custo1" name="nota_custo" value="1"><label for="custo1">★</label>
+                    </div>
+                </div>
+            </div>
+
+            <textarea id="comentario-texto" rows="3" placeholder="Conte sua experiência com este produto..." required></textarea>
+            <button type="submit" class="buy-button">Enviar Avaliação</button>
+        </form>
+    </div>
+    
+    <div id="login-warning" class="login-warning hidden">
+        <p><i class="fa-solid fa-lock"></i> Para avaliar este produto, <a href="login.html">faça login</a>.</p>
+    </div>
+
+    <div id="reviews-list" class="reviews-list">
+        <p>Carregando avaliações...</p>
+    </div>
+</div>
     </main>
 
     <footer>

@@ -67,4 +67,119 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("loading-msg").textContent =
       "Erro ao carregar informações do produto. Tente novamente.";
   }
+  // --- LÓGICA DE AVALIAÇÕES ---
+
+    // 1. Verifica se usuário está logado para mostrar o formulário
+    const formContainer = document.getElementById('review-form-container');
+    const loginWarning = document.getElementById('login-warning');
+
+    try {
+        const authResp = await fetch('/api/auth/status', { credentials: 'include' });
+        const authData = await authResp.json();
+        
+        if (authData.loggedIn) {
+            formContainer.classList.remove('hidden');
+        } else {
+            loginWarning.classList.remove('hidden');
+        }
+    } catch (e) {
+        loginWarning.classList.remove('hidden');
+    }
+
+    // 2. Carregar Avaliações Existentes ao abrir a página
+    carregarAvaliacoes(id);
+
+    // 3. Enviar Nova Avaliação
+    const formAvaliacao = document.getElementById('form-avaliacao');
+    if (formAvaliacao) {
+        formAvaliacao.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const comentario = document.getElementById('comentario-texto').value;
+            
+            // Pega as notas selecionadas
+            const saborInput = document.querySelector('input[name="nota_sabor"]:checked');
+            const custoInput = document.querySelector('input[name="nota_custo"]:checked');
+            
+            if (!saborInput || !custoInput) {
+                alert("Por favor, dê uma nota tanto para o Sabor quanto para o Custo-Benefício.");
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/suplementos/avaliacoes', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        id_suplemento: id,
+                        nota_sabor: saborInput.value,
+                        nota_custo: custoInput.value,
+                        comentario: comentario
+                    })
+                });
+
+                const result = await response.json();
+                alert(result.message);
+
+                if (response.ok) {
+                    formAvaliacao.reset(); // Limpa o form
+                    carregarAvaliacoes(id); // Recarrega a lista para mostrar o novo comentário
+                }
+            } catch (error) {
+                console.error("Erro ao enviar avaliação:", error);
+                alert("Erro ao conectar com o servidor.");
+            }
+        });
+    }
 });
+
+
+// ... Fim do DOMContentLoaded ...
+
+// --- FUNÇÃO AUXILIAR PARA CARREGAR A LISTA ---
+async function carregarAvaliacoes(idProduto) {
+    const listContainer = document.getElementById('reviews-list');
+    
+    try {
+        const response = await fetch(`/api/suplementos/${idProduto}/avaliacoes`);
+        const avaliacoes = await response.json();
+
+        if (avaliacoes.length === 0) {
+            listContainer.innerHTML = '<p style="color: #777; font-style: italic; text-align:center; padding: 20px;">Nenhuma avaliação ainda. Seja o primeiro!</p>';
+            return;
+        }
+
+        listContainer.innerHTML = '';
+        
+        avaliacoes.forEach(av => {
+            // Função rápida para criar string de estrelas (ex: ★★★★☆)
+            const stars = (n) => '★'.repeat(n) + '☆'.repeat(5 - n);
+            const dataFormatada = new Date(av.data_avaliacao).toLocaleDateString('pt-BR');
+
+            const div = document.createElement('div');
+            div.className = 'review-item';
+            div.innerHTML = `
+                <div class="review-header">
+                    <span class="review-user"><i class="fa-solid fa-user"></i> ${av.nome_usuario}</span>
+                    <span class="review-date">${dataFormatada}</span>
+                </div>
+                
+                <div class="review-scores">
+                    <div class="score-item">Sabor: <strong>${stars(av.nota_sabor)}</strong></div>
+                    <div class="score-item">Custo-Benefício: <strong>${stars(av.nota_custo)}</strong></div>
+                </div>
+
+                <div class="review-body">
+                    ${av.comentario}
+                </div>
+            `;
+            listContainer.appendChild(div);
+        });
+
+    } catch (error) {
+        console.error("Erro ao carregar lista:", error);
+        listContainer.innerHTML = '<p>Erro ao carregar avaliações.</p>';
+    }
+}
+

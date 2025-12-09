@@ -250,3 +250,63 @@ exports.buscarPorId = (req, res) => {
         res.json(results[0]);
     });
 };
+
+// --- FUNÇÕES DE AVALIAÇÃO (Sabor e Custo) ---
+
+// 1. Listar avaliações de um produto
+exports.listarAvaliacoes = (req, res) => {
+    const { id_suplemento } = req.params;
+    
+    // Busca as duas notas, o comentário e o nome do usuário
+    const sql = `
+        SELECT 
+            a.id_avaliacao, 
+            a.nota_sabor, 
+            a.nota_custo, 
+            a.comentario, 
+            a.data_avaliacao, 
+            u.nome as nome_usuario
+        FROM avaliacoes a
+        JOIN usuarios u ON a.id_usuario = u.id_usuario
+        WHERE a.id_suplemento = ?
+        ORDER BY a.data_avaliacao DESC
+    `;
+
+    db.query(sql, [id_suplemento], (err, results) => {
+        if (err) {
+            console.error("Erro ao buscar avaliações:", err);
+            return res.status(500).json({ message: "Erro ao carregar avaliações." });
+        }
+        res.json(results);
+    });
+};
+
+// 2. Adicionar nova avaliação
+exports.adicionarAvaliacao = (req, res) => {
+    // Verifica se está logado
+    if (!req.session.usuario) {
+        return res.status(401).json({ message: "Faça login para avaliar." });
+    }
+
+    const id_usuario = req.session.usuario.id;
+    // Recebe os dados do formulário
+    const { id_suplemento, nota_sabor, nota_custo, comentario } = req.body;
+
+    // Validação dos dados
+    if (!nota_sabor || nota_sabor < 1 || nota_sabor > 5) {
+        return res.status(400).json({ message: "Por favor, avalie o SABOR (1 a 5)." });
+    }
+    if (!nota_custo || nota_custo < 1 || nota_custo > 5) {
+        return res.status(400).json({ message: "Por favor, avalie o CUSTO-BENEFÍCIO (1 a 5)." });
+    }
+
+    const sql = "INSERT INTO avaliacoes (id_usuario, id_suplemento, nota_sabor, nota_custo, comentario) VALUES (?, ?, ?, ?, ?)";
+    
+    db.query(sql, [id_usuario, id_suplemento, nota_sabor, nota_custo, comentario], (err, result) => {
+        if (err) {
+            console.error("Erro ao salvar avaliação:", err);
+            return res.status(500).json({ message: "Erro ao salvar avaliação." });
+        }
+        res.status(201).json({ message: "Avaliação enviada com sucesso!" });
+    });
+};

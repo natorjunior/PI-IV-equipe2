@@ -51,3 +51,15 @@ CREATE TABLE IF NOT EXISTS midias (
     FOREIGN KEY (id_suplemento) REFERENCES suplementos(id_suplemento)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ;
+
+CREATE TABLE IF NOT EXISTS avaliacoes (
+    id_avaliacao INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_suplemento INT NOT NULL,
+    nota_sabor INT NOT NULL CHECK (nota_sabor BETWEEN 1 AND 5),
+    nota_custo INT NOT NULL CHECK (nota_custo BETWEEN 1 AND 5),
+    comentario TEXT,
+    data_avaliacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_suplemento) REFERENCES suplementos(id_suplemento) ON DELETE CASCADE
+);

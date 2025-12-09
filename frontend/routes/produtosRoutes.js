@@ -25,5 +25,12 @@ router.post("/favoritos", produtosController.adicionarFavorito);
 // Rota para REMOVER um favorito. O :id_suplemento é um parâmetro na URL
 router.delete("/favoritos/:id_suplemento", produtosController.removerFavorito);
 
+// --- ROTAS DE AVALIAÇÃO ---
+// Rota pública para ler os comentários
+router.get("/:id_suplemento/avaliacoes", produtosController.listarAvaliacoes);
+
+// Rota protegida para enviar comentário (o controller verifica a sessão)
+router.post("/avaliacoes", produtosController.adicionarAvaliacao);
+
 //  exportando módulo
 module.exports = router;
